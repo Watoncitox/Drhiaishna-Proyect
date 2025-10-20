@@ -1,0 +1,50 @@
+.floating-menu-container {
+  background-color: white !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+}
+
+.logo {
+  border-radius: 8px;
+}
+
+.nav-link-custom {
+  color: #444 !important;
+  font-weight: 500;
+  padding: 8px 16px !important;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.nav-link-custom:hover {
+  color: #c67ac7 !important;
+  background-color: #f8f9fa;
+}
+
+.nav-link-custom.active {
+  color: #c67ac7 !important;
+  font-weight: 600;
+}
+
+/* Estilos específicos para la navbar de Bootstrap */
+.navbar-toggler {
+  border: none;
+  color: #c67ac7;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background-color: white;
+    padding: 20px 0;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
