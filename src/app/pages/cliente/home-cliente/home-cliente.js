@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./home-cliente.css";
-import Navbar from "../../../components/Navbar/Navbar";
+import Navbar from "../../../components/Navbar/Navbar-cliente";
 // Importar componentes de Bootstrap
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 

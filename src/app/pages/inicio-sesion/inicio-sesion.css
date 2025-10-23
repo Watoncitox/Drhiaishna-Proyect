@@ -1,14 +1,67 @@
+:root{
+  --bg-1: #f5f7fa;
+  --bg-2: #c3cfe2;
+  --accent: #c67ac7;
+  --accent-2: #9c4fa0;
+  --muted: #666;
+  --card-shadow: 0 8px 30px rgba(198,122,199,0.12);
+  --radius-md: 12px;
+}
+
+/* Base input style (reused) */
+.input-box {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(234,177,198,0.6);
+  background: #fff;
+  transition: box-shadow .18s ease, border-color .18s ease, transform .08s ease;
+  font-size: 0.98rem;
+}
+
+.input-box:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(198,122,199,0.12);
+  transform: translateY(-1px);
+}
+
+.input-box[aria-invalid="true"], .input-box.invalid {
+  border-color: #e5596e;
+  box-shadow: 0 6px 20px rgba(229,89,110,0.08);
+}
 /* === ESTILOS GENERALES === */
 .background-gradient {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color: #222;
 }
 
 /* === HERO SECTION === */
+.page-header {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.page-header h1 {
+  margin-top: 120px;
+  margin-bottom: 60px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.page-header p {
+  color: #666;
+  font-size: 18px;
+}
+
 .hero-section {
   position: relative;
   width: 100%;
-  height: 600px;
+  height: 420px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,22 +79,21 @@
 }
 
 .hero-overlay {
-  margin-top: 180px;
   position: relative;
   text-align: center;
   color: white;
   background: rgba(0, 0, 0, 0.5);
   padding: 40px;
-  border-radius: 50px;
+  border-radius: 10px;
   backdrop-filter: blur(5px);
   z-index: 1;
 }
 
 .hero-title {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.15);
 }
 
 .highlight {
@@ -57,17 +109,17 @@
 
 .cta-btn {
   display: inline-block;
-  background: linear-gradient(135deg, #c67ac7, #9c4fa0);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: white;
-  padding: 15px 30px;
+  padding: 12px 20px;
   border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(198, 122, 199, 0.3);
+  transition: transform .16s ease, box-shadow .16s ease;
+  box-shadow: 0 6px 22px rgba(156,79,160,0.12);
 }
 
 .cta-btn:hover {
@@ -87,7 +139,7 @@ main {
 }
 
 .about-section {
-  padding: 80px 20px;
+  padding: 60px 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -107,13 +159,13 @@ main {
 
 .about-img {
   width: 100%;
-  max-width: 400px;
-  height: 400px;
+  max-width: 420px;
+  height: 420px;
   object-fit: cover;
   aspect-ratio: 1/1;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(18,24,34,0.06);
+  transition: transform .22s ease, box-shadow .22s ease;
 }
 
 .about-img:hover {
@@ -125,11 +177,11 @@ main {
 }
 
 .about-info h2 {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 20px;
-  border-bottom: 3px solid #c67ac7;
-  padding-bottom: 10px;
+  font-size: 2rem;
+  color: #222;
+  margin-bottom: 14px;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 8px;
 }
 
 .about-info p {
@@ -160,12 +212,15 @@ main {
   color: #c67ac7;
 }
 
+/* ===== INICIO SESIÓN (ADMIN / CLIENTE) ===== */
+
 /* === SEPARADOR PERSONALIZADO === */
 .custom-separator {
   text-align: center;
-  padding: 60px 20px;
+  padding: 48px 20px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   margin: 0;
+  border-radius: 8px;
 }
 
 .separator-text {
@@ -178,7 +233,7 @@ main {
 
 /* === BOOTSTRAP OVERRIDES === */
 .btn-primary.cta-btn {
-  background: linear-gradient(135deg, #c67ac7, #9c4fa0) !important;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2)) !important;
   border: none !important;
   color: white !important;
 }
@@ -197,6 +252,40 @@ main {
   object-fit: cover;
   aspect-ratio: 1/1;
 }
+
+/* ===== INICIO SESIÓN (ADMIN / CLIENTE) improvements ===== */
+.admin-hero{
+  /* use header offset variable (fallback to 32px) + extra spacing */
+  margin-top: calc(var(--header-offset, 32px) + 20px);
+  margin-bottom: 36px;
+  padding: 40px 12px;
+  text-align: center;
+}
+
+.admin-options{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  padding: 16px;
+}
+
+.admin-card{
+  margin-top: 50px;
+  background: linear-gradient(180deg, #ffffff, #fffafc);
+  padding: 26px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-shadow);
+  width: 420px;
+  max-width: 94%;
+}
+
+.admin-card h3{font-size:1.15rem;margin-bottom:6px}
+
+.admin-card .cta-btn{padding:12px 16px;font-weight:700}
+
+/* helpers */
+.text-center{ text-align:center }
+
 
 /* === RESPONSIVE === */
 @media (max-width: 768px) {

@@ -1,7 +1,7 @@
 // src/pages/Nosotros/Nosotros.js
 import React from "react";
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import Navbar from "../../../components/Navbar/Navbar";
+import Navbar from "../../../components/Navbar/Navbar-cliente";
 import "./nosotros.css";
 
 // Importar las imágenes
