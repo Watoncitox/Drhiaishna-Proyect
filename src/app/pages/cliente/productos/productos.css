@@ -1,13 +1,12 @@
 
-h2 {
+.productos-page h2 {
   font-weight: 600;
 }
 
-.card {
+.productos-page .card {
   transition: transform 0.2s ease;
 }
 
-.card:hover {
+.productos-page .card:hover {
   transform: scale(1.02);
 }
-
