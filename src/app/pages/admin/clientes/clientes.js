@@ -1,6 +1,8 @@
+import "./clientes.css";
 import React, { useEffect, useMemo, useState } from "react";
 import NavbarAdmin from "../../../components/Navbar/Navbar-admin";
 import { Table, Button, ButtonGroup, Badge } from "react-bootstrap";
+
 import { listCitas, actualizarEstado } from "../../../services/appointmentsService";
 
 function inNextDays(dateIso, days) {
