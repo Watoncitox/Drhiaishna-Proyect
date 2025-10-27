@@ -1,1 +1,13 @@
-/* estilos */
+.container {
+  max-width: 900px;
+}
+
+.card img {
+  max-height: 300px;
+  object-fit: cover;
+}
+
+h3 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
