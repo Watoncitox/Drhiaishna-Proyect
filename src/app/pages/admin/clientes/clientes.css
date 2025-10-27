@@ -1,8 +1,9 @@
-.table td,
-.table th {
+.clientes-page .table td,
+.clientes-page .table th {
   vertical-align: middle;
 }
 
-button {
-  font-size: 0.9rem;
+.clientes-page h2 {
+  font-weight: 600;
 }
+
