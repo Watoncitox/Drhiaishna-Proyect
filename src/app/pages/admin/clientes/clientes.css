@@ -1,1 +1,8 @@
-/* estilos simples si se requieren */
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+button {
+  font-size: 0.9rem;
+}
