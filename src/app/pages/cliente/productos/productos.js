@@ -30,7 +30,7 @@ export default function ProductosCliente() {
     <>
       <NavbarCliente />
       {flash && <Flash initial={flash} />}
-      <div className="container mt-5 pt-5">
+      <div className="container mt-5 pt-5 productos-page">
         <h2 className="mb-4">Productos</h2>
 
         {productos.length === 0 ? (
