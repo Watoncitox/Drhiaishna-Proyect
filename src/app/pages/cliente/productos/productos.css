@@ -1,1 +1,13 @@
-/* estilos */
+
+h2 {
+  font-weight: 600;
+}
+
+.card {
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
