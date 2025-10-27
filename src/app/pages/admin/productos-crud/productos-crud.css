@@ -1,9 +1,13 @@
-form {
+.productos-crud-page h2 {
+  font-weight: 600;
+}
+
+.productos-crud-page form {
   max-width: 700px;
   margin: 0 auto;
 }
 
-button {
+.productos-crud-page button {
   margin-right: 8px;
 }
 
