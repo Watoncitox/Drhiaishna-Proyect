@@ -1,12 +1,106 @@
 
+.productos-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: calc(var(--header-offset, 72px) + 1rem);
+  padding-bottom: 2rem;
+}
+
 .productos-page h2 {
-  font-weight: 600;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: 0.2px;
 }
 
 .productos-page .card {
-  transition: transform 0.2s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  border: 0;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .productos-page .card:hover {
-  transform: scale(1.02);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Imagen del card: controlar tamaño y recorte */
+.productos-page .card-img-top,
+.productos-page .card img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Mantener cuerpo del card con espacio entre contenido y acciones */
+.productos-page .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.productos-page .card-title {
+  margin-bottom: 0.25rem;
+  font-size: 1.05rem;
+}
+
+.productos-page .card-text.small {
+  color: #6c757d;
+}
+
+.productos-page .price {
+  color: #d6336c; /* tono similar al header */
+  font-weight: 700;
+}
+
+.productos-page .card .btn {
+  min-width: 72px;
+}
+
+/* Agrupar las acciones a la derecha y mantener espaciado */
+.productos-page .card .d-flex > div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 576px) {
+  .productos-page .card-img-top,
+  .productos-page .card img {
+    height: 160px;
+  }
+}
+
+/* Page header (shared visual style with Nosotros) */
+.page-header {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f8f0fb 0%, #f7dbe9 100%);
+  margin-bottom: 1.25rem;
+}
+
+.page-header h1 {
+  margin-top: 24px;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 700;
+}
+
+.page-header p {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+/* Price highlight */
+.productos-page .price {
+  color: #d6336c;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Ensure top spacing so the floating navbar doesn't overlap header */
+.page-header {
+  padding-top: calc(var(--header-offset, 72px) + 1rem);
 }

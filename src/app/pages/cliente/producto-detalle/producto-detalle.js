@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import NavbarCliente from "../../../components/Navbar/Navbar-cliente";
 import { Card, Button } from "react-bootstrap";
 import { getProducto } from "../../../services/productsService";
 import Flash from "../../../components/Toast";
+import "./producto-detalle.css";
 
 export default function ProductoDetalle() {
   const { id } = useParams();
@@ -64,9 +65,10 @@ export default function ProductoDetalle() {
               </h4>
               <Button onClick={agregar}>Agregar</Button>
               <Button
+                as={Link}
+                to="/productos"
                 variant="outline-secondary"
                 className="ms-2"
-                href="/productos"
               >
                 Volver
               </Button>

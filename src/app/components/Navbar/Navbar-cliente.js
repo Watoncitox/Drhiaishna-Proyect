@@ -43,7 +43,7 @@ const NavbarCliente = ({ usuarioActivo }) => {
                 <Nav.Link as={NavLink} to="/inicio-sesion">Iniciar Sesión</Nav.Link>
               )}
               <Nav.Link as={NavLink} to="/servicios">Servicios</Nav.Link>
-              <Nav.Link as={NavLink} to="/productos-detalle">Productos</Nav.Link>
+              <Nav.Link as={NavLink} to="/productos">Productos</Nav.Link>
               <Nav.Link as={NavLink} to="/blogs">Blogs</Nav.Link>
             </Nav>
           </Navbar.Collapse>

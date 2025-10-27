@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import NavbarCliente from "../../../components/Navbar/Navbar-cliente";
-import { Card, Button, Row, Col } from "react-bootstrap";
+import { Card, Button, Row, Col, Container } from "react-bootstrap";
 import { getProductos } from "../../../services/productsService";
 import Flash from "../../../components/Toast";
 import { Link } from "react-router-dom";
+import "./productos.css";
 
 export default function ProductosCliente() {
   const [productos, setProductos] = useState([]);
@@ -29,9 +30,13 @@ export default function ProductosCliente() {
   return (
     <>
       <NavbarCliente />
+      {/* Header similar to Nosotros view */}
+      <section className="page-header">
+        <h1>Productos</h1>
+        <p>Explora nuestros productos disponibles — calidad y estilo para cada ocasión.</p>
+      </section>
       {flash && <Flash initial={flash} />}
-      <div className="container mt-5 pt-5 productos-page">
-        <h2 className="mb-4">Productos</h2>
+      <div className="container mt-4 productos-page">
 
         {productos.length === 0 ? (
           <p className="text-muted">No hay productos disponibles.</p>
@@ -49,10 +54,9 @@ export default function ProductosCliente() {
                     <Card.Title>{p.nombre}</Card.Title>
                     <Card.Text className="small text-muted">{p.descripcion}</Card.Text>
                     <div className="d-flex justify-content-between align-items-center">
-                      <strong>
-                        $
-                        {Number(p.precio || 0).toLocaleString("es-CL")}
-                      </strong>
+                      <div className="price">
+                        ${Number(p.precio || 0).toLocaleString("es-CL")}
+                      </div>
                       <div>
                         <Button
                           as={Link}
