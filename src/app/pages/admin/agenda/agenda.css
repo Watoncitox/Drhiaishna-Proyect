@@ -1,1 +1,9 @@
-/* estilos simples si se requieren */
+
+
+.calendar {
+  margin-top: 2rem;
+}
+
+.card {
+  border-radius: 12px;
+}
