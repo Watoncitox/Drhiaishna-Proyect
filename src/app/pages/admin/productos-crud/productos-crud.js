@@ -1,3 +1,4 @@
+import "./productos-crud.css";
 import React, { useEffect, useState } from "react";
 import NavbarAdmin from "../../../components/Navbar/Navbar-admin";
 import { Table, Button, Modal, Form } from "react-bootstrap";
