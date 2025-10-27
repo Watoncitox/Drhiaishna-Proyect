@@ -1,9 +1,6 @@
-
-
-.calendar {
-  margin-top: 2rem;
+  font-weight: 600;
 }
 
-.card {
+.agenda-page .card {
   border-radius: 12px;
 }
