@@ -1,13 +1,18 @@
-.container {
+.producto-detalle-page {
   max-width: 900px;
 }
 
-.card img {
+.producto-detalle-page img {
   max-height: 300px;
   object-fit: cover;
 }
 
-h3 {
+.producto-detalle-page h3 {
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
+
+
+
+
+
