@@ -4,9 +4,9 @@ function seed() {
   const exists = localStorage.getItem(KEY);
   if (!exists) {
     const initial = [
-      { id: "p1", nombre: "Shampoo Kérastase", descripcion: "Nutre y fortalece", precio: 15990, imagen: "/img/products/p1.jpg" },
-      { id: "p2", nombre: "Acondicionador L'Oréal", descripcion: "Brillo y suavidad", precio: 12990, imagen: "/img/products/p2.jpg" },
-      { id: "p3", nombre: "Serum Capilar", descripcion: "Reparación intensiva", precio: 19990, imagen: "/img/products/p3.jpg" },
+      { id: "p1", nombre: "Crema Facial", descripcion: "Hidratación Diaria", precio: 15990, imagen: "/img/products/p1.jpg" },
+      { id: "p2", nombre: "Mascarilla Detox", descripcion: "Purifica y revitaliza", precio: 12990, imagen: "/img/products/p3.jpg" },
+      { id: "p3", nombre: "Serum Capilar", descripcion: "Reparación intensiva", precio: 19990, imagen: "/img/products/p2.jpg" },
     ];
     localStorage.setItem(KEY, JSON.stringify(initial));
     return;
