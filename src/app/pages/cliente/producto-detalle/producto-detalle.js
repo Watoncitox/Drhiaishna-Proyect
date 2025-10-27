@@ -32,9 +32,7 @@ export default function ProductoDetalle() {
     return (
       <>
         <NavbarCliente />
-        <div className="container mt-5 pt-5 producto-detalle-page">
-          Producto no encontrado
-        </div>
+        <div className="container mt-5 pt-5 producto-detalle-page">Producto no encontrado</div>
       </>
     );
   }
@@ -48,11 +46,7 @@ export default function ProductoDetalle() {
           <div className="row g-4">
             <div className="col-md-5">
               {prod.imagen ? (
-                <img
-                  src={prod.imagen}
-                  className="img-fluid rounded"
-                  alt={prod.nombre}
-                />
+                <img src={prod.imagen} className="img-fluid rounded" alt={prod.nombre} />
               ) : (
                 <div className="bg-light rounded" style={{ height: 240 }} />
               )}
@@ -64,14 +58,9 @@ export default function ProductoDetalle() {
                 ${Number(prod.precio || 0).toLocaleString("es-CL")}
               </h4>
               <Button onClick={agregar}>Agregar</Button>
-              <Button
-                as={Link}
-                to="/productos"
-                variant="outline-secondary"
-                className="ms-2"
-              >
+              <Link to="/productos" className="btn btn-outline-secondary ms-2">
                 Volver
-              </Button>
+              </Link>
             </div>
           </div>
         </Card>
