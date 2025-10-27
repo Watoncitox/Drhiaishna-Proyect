@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import NavbarAdmin from "../../../components/Navbar/Navbar-admin";
+import "./agenda.css";
+
 import { Card, Row, Col, Button, ListGroup, Badge } from "react-bootstrap";
 import { listCitas } from "../../../services/appointmentsService";
 
