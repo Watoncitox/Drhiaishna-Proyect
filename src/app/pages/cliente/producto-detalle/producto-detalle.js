@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import NavbarCliente from "../../../components/Navbar/Navbar-cliente";
 import { Card, Button } from "react-bootstrap";
 import { getProducto } from "../../../services/productsService";
 import Flash from "../../../components/Toast";
@@ -31,7 +30,6 @@ export default function ProductoDetalle() {
   if (!prod) {
     return (
       <>
-        <NavbarCliente />
         <div className="container mt-5 pt-5 producto-detalle-page">Producto no encontrado</div>
       </>
     );
@@ -39,7 +37,7 @@ export default function ProductoDetalle() {
 
   return (
     <>
-      <NavbarCliente />
+      {/* Navbar provided by AppRouter via AuthContext */}
       {flash && <Flash initial={flash} />}
       <div className="container mt-5 pt-5 producto-detalle-page">
         <Card className="p-4">

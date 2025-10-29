@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./home-cliente.css";
-import Navbar from "../../../components/Navbar/Navbar-cliente";
+import { useAuth } from '../../../context/AuthContext';
 // Importar componentes de Bootstrap
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 
@@ -12,29 +12,21 @@ import iaImg from "../../../assets/img/fondo/nosotros/ia.png";
 
 function HomeCliente() {
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState(null);
-
-  useEffect(() => {
-    // Cargar usuario desde localStorage
-    const storedUser = JSON.parse(localStorage.getItem("currentUser"));
-    setCurrentUser(storedUser);
-  }, []);
+  const { usuario, logout, notify } = useAuth();
 
   // Función del botón "Agenda tu hora"
   const agendar = () => {
     navigate("/agendar-hora");
   };
 
-  // Función de logout
+  // Función de logout (si se necesita aquí)
   const cerrarSesion = () => {
-    localStorage.removeItem("currentUser");
-    setCurrentUser(null);
-    alert("Sesión cerrada correctamente");
+    logout();
+    notify({ title: 'Sesión', body: 'Sesión cerrada correctamente', variant: 'warning' });
   };
 
   return (
     <div className="background-gradient">
-      <Navbar />
 
       {/* ===== Hero principal ===== */}
       <section className="hero-section">

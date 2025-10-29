@@ -1,8 +1,8 @@
 // src/pages/Nosotros/Nosotros.js
 import React from "react";
-import { Container, Row, Col, Card } from 'react-bootstrap';
-import Navbar from "../../../components/Navbar/Navbar-cliente";
+import { Container, Row, Col } from 'react-bootstrap';
 import "./nosotros.css";
+import GlobalCard from '../../../components/Global-Card/Global-Card';
 
 // Importar las imágenes
 import matiasImg from "../../../assets/img/fondo/nosotros/matias.jpg";
@@ -39,7 +39,7 @@ const equipo = [
 const Nosotros = () => {
   return (
     <>
-      <Navbar />
+
 
       <section className="page-header">
         <h1>Nuestro Equipo de Desarrollo</h1>
@@ -50,36 +50,15 @@ const Nosotros = () => {
         <Row className="justify-content-center">
           {equipo.map((persona, index) => (
             <Col lg={4} md={6} sm={12} className="mb-4" key={index}>
-              <Card className="team-member h-100 shadow-sm">
-                <div className="member-photo text-center">
-                  <Card.Img 
-                    variant="top" 
-                    src={persona.foto} 
-                    alt={`Foto de ${persona.nombre}`}
-                    className="rounded-circle mx-auto mt-4"
-                    style={{width: '150px', height: '150px', objectFit: 'cover'}}
-                  />
-                </div>
-                <Card.Body className="text-center">
-                  <Card.Title as="h2" className="mb-2">{persona.nombre}</Card.Title>
-                  <Card.Subtitle as="h3" className="mb-3 text-muted">
-                    {persona.especialidad}
-                  </Card.Subtitle>
-                  <Card.Text className="mb-4">
-                    {persona.descripcion}
-                  </Card.Text>
-                  <div className="social-links">
-                    <a 
-                      href={persona.github} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="btn btn-outline-primary"
-                    >
-                      <i className="fab fa-github me-2"></i>GitHub
-                    </a>
-                  </div>
-                </Card.Body>
-              </Card>
+              <GlobalCard
+                image={persona.foto}
+                title={persona.nombre}
+                subtitle={persona.especialidad}
+                description={persona.descripcion}
+                ctaText="GitHub"
+                ctaLink={persona.github}
+                external
+              />
             </Col>
           ))}
         </Row>

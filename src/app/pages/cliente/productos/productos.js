@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NavbarCliente from "../../../components/Navbar/Navbar-cliente";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { getProductos } from "../../../services/productsService";
 import Flash from "../../../components/Toast";
@@ -29,7 +28,7 @@ export default function ProductosCliente() {
 
   return (
     <>
-      <NavbarCliente />
+      {/* Navbar provided by AppRouter via AuthContext */}
       {flash && <Flash initial={flash} />}
       <div className="container mt-5 pt-5 productos-page">
         <h2 className="mb-4">Productos</h2>

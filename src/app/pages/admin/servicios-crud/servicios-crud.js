@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Button, Table, Alert, Form } from 'react-bootstrap';
-import NavbarAdmin from '../../../components/Navbar/Navbar-admin';
+// NavbarAdmin is provided globally by App.js when the user is admin.
 import './servicios-crud.css';
 // Nota: Asume que las clases de Bootstrap ya están disponibles en tu proyecto.
 

@@ -1,24 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { Navbar, Container, Nav } from "react-bootstrap";
 import "./Navbar.css";
 import logo from "../../assets/img/logo/logo.jpg";
+import { useAuth } from '../../context/AuthContext';
 
-const NavbarCliente = ({ usuarioActivo }) => {
-  const [activo, setActivo] = useState(usuarioActivo);
-
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("usuarioActivo"));
-    if (data) setActivo(data);
-  }, [usuarioActivo]);
-
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("usuarioActivo");
-    setActivo(null);
-    navigate("/home");
-  };
+const NavbarCliente = () => {
+  const { usuario } = useAuth();
 
   return (
     <div className="floating-menu-container">
@@ -38,14 +26,14 @@ const NavbarCliente = ({ usuarioActivo }) => {
               <Nav.Link as={NavLink} to="/servicios">Servicios</Nav.Link>
               
               <Nav.Link as={NavLink} to="/productos">Productos</Nav.Link>
-              <Nav.Link as={NavLink} to="/blogs">Blogs</Nav.Link>
+              {/* <Nav.Link as={NavLink} to="/blogs">Blogs</Nav.Link> */}
 
               <Nav.Link as={NavLink} to="/nosotros">Nosotros</Nav.Link>
               <Nav.Link as={NavLink} to="/contacto">Contacto</Nav.Link>
               
-              {activo ? (
+              {usuario ? (
                 <>
-                  <Nav.Link as={NavLink} to="/perfil">{activo.nombre}</Nav.Link>
+                  <Nav.Link as={NavLink} to="/perfil">{usuario.nombre}</Nav.Link>
                 </>
               ) : (
                 <Nav.Link as={NavLink} to="/inicio-sesion">Iniciar Sesión</Nav.Link>

@@ -17,92 +17,61 @@ import InicioSesion from "./app/pages/inicio-sesion/inicio-sesion";
 import ClientesAdmin from "./app/pages/admin/clientes/clientes";
 import AgendaAdmin from "./app/pages/admin/agenda/agenda";
 import ProductosCRUD from "./app/pages/admin/productos-crud/productos-crud";
+import ServiciosCRUD from "./app/pages/admin/servicios-crud/servicios-crud";
+import UsuarioAdmin from "./app/pages/admin/usuario-admin/usuario-admin";
 import ProductosCliente from "./app/pages/cliente/productos/productos";
 import ProductoDetalle from "./app/pages/cliente/producto-detalle/producto-detalle";
 import ServiciosPage from "./app/pages/cliente/servicios/servicios"; 
 import PerfilPage from "./app/pages/cliente/perfil/PerfilPage"; // 👈 NUEVA IMPORTACIÓN
+import { AuthProvider, useAuth } from "./app/context/AuthContext";
+import { ToastContainer, Toast } from 'react-bootstrap';
 
-function App() {
-  // 1. Lógica para el usuario activo
-  const [usuarioActivo, setUsuarioActivo] = useState(null);
+function AppRouter() {
+  const { usuario, toast, hideToast } = useAuth();
 
-  useEffect(() => {
-    try {
-      const data = localStorage.getItem("usuarioActivo");
-      if (data) {
-        setUsuarioActivo(JSON.parse(data));
-      }
-    } catch (error) {
-      console.error("Error leyendo usuarioActivo de localStorage:", error);
-    }
-  }, []);
+  const isAdmin = usuario && String(usuario.rol || '').toLowerCase() === 'admin';
 
-  // 2. LÓGICA DE ROLES: Verifica si el usuario activo es administrador
-  const isAdmin = usuarioActivo && usuarioActivo.rol === 'ADMIN'; 
-  
   return (
     <BrowserRouter>
-      {/* 3. RENDERIZADO CONDICIONAL DE LA BARRA (SOLO UNA A LA VEZ) */}
-      {isAdmin ? (
-        <NavbarAdmin usuarioActivo={usuarioActivo} />
-      ) : (
-        <NavbarCliente usuarioActivo={usuarioActivo} />
-      )}
-      
+      {/* Navbar decidido por el contexto */}
+      {isAdmin ? <NavbarAdmin /> : <NavbarCliente />}
+
       <Routes>
-        {/* Cliente */}
         <Route path="/" element={<HomeCliente />} />
         <Route path="/home" element={<HomeCliente />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/inicio-sesion" element={<InicioSesion />} />
-        
-        {/* RUTA DE PERFIL (NUEVA) */}
         <Route path="/perfil" element={<PerfilPage />} />
-
-        {/* RUTA DE SERVICIOS */}
         <Route path="/servicios" element={<ServiciosPage />} />
-
-        {/* Productos (Cliente) */}
         <Route path="/productos" element={<ProductosCliente />} />
         <Route path="/producto/:id" element={<ProductoDetalle />} />
-
-        {/* Admin (protegido) */}
-        <Route
-          path="/admin/home-admin"
-          element={
-            <RequireAdmin>
-              <HomeAdmin />
-            </RequireAdmin>
-          }
-        />
-        <Route
-          path="/admin/clientes"
-          element={
-            <RequireAdmin>
-              <ClientesAdmin />
-            </RequireAdmin>
-          }
-        />
-        <Route
-          path="/admin/agenda"
-          element={
-            <RequireAdmin>
-              <AgendaAdmin />
-            </RequireAdmin>
-          }
-        />
-        <Route
-          path="/admin/productos"
-          element={
-            <RequireAdmin>
-              <ProductosCRUD />
-            </RequireAdmin>
-          }
-        />
+        <Route path="/admin/home-admin" element={<RequireAdmin><HomeAdmin /></RequireAdmin>} />
+        <Route path="/admin/clientes" element={<RequireAdmin><ClientesAdmin /></RequireAdmin>} />
+        <Route path="/admin/agenda" element={<RequireAdmin><AgendaAdmin /></RequireAdmin>} />
+        <Route path="/admin/productos" element={<RequireAdmin><ProductosCRUD /></RequireAdmin>} />
+        <Route path="/admin/usuario" element={<RequireAdmin><UsuarioAdmin /></RequireAdmin>} />
+        <Route path="/admin/servicios-crud" element={<RequireAdmin><ServiciosCRUD /></RequireAdmin>} />
       </Routes>
+      {/* Global toast container driven by AuthContext */}
+      <ToastContainer position="bottom-end" className="p-3">
+        {toast && (
+          <Toast onClose={hideToast} show={!!toast.show} bg={toast.variant} delay={3000} autohide>
+            <Toast.Header>
+              <strong className="me-auto">{toast.title}</strong>
+            </Toast.Header>
+            <Toast.Body className="text-white">{toast.body}</Toast.Body>
+          </Toast>
+        )}
+      </ToastContainer>
     </BrowserRouter>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppRouter />
+    </AuthProvider>
+  );
+}

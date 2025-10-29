@@ -1,25 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { Navbar, Container, Nav, Badge } from "react-bootstrap";
 import logo from "../../assets/img/logo/logo.jpg";
 import "./Navbar.css";
+import { useAuth } from '../../context/AuthContext';
 
 const NavbarAdmin = () => {
-  const [usuario, setUsuario] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    try {
-      const u = JSON.parse(localStorage.getItem("usuarioActivo"));
-      if (u) setUsuario(u);
-    } catch (e) {}
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("usuarioActivo");
-    setUsuario(null);
-    navigate("/home");
-  };
+  const { usuario } = useAuth();
 
   return (
     <div className="floating-menu-container">
@@ -38,10 +25,10 @@ const NavbarAdmin = () => {
               <Nav.Link as={NavLink} to="/admin/productos">Productos</Nav.Link>
               <Nav.Link as={NavLink} to="/admin/servicios-crud">Servicios</Nav.Link>
               <Nav.Link as={NavLink} to="/admin/agenda">Agenda</Nav.Link>
-              <Nav.Link as={NavLink} to="/admin/usuario">{usuario?.nombre || "Usuario"}</Nav.Link>
-              <Button variant="outline-dark" size="sm" onClick={handleLogout}>
-                Cerrar sesión
-              </Button>
+              {/* Mostrar rol del usuario como badge y luego su nombre */}
+              <div className="d-flex align-items-center gap-2">
+                <Nav.Link as={NavLink} to="/admin/usuario">{usuario?.nombre || "Usuario"}</Nav.Link>
+              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>

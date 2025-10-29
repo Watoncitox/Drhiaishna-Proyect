@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar/Navbar-cliente";
+import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from "react-router-dom";
 import "./inicio-sesion.css";
 
 const InicioSesion = () => {
   const [mostrarLogin, setMostrarLogin] = useState(true);
   const [usuarios, setUsuarios] = useState([]);
-  const [usuarioActivo, setUsuarioActivo] = useState(null);
+  const { login, notify } = useAuth();
 
   // ===== USUARIOS BASE =====
   const usuariosBase = [
@@ -25,9 +25,6 @@ const InicioSesion = () => {
     } else {
       setUsuarios(data);
     }
-
-    const activo = JSON.parse(localStorage.getItem("usuarioActivo"));
-    if (activo) setUsuarioActivo(activo);
   }, []);
 
   const navigate = useNavigate();
@@ -43,17 +40,15 @@ const InicioSesion = () => {
     );
 
     if (usuario) {
-      alert(`✅ Bienvenido ${usuario.nombre}`);
-      localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
-      setUsuarioActivo(usuario);
-
-      if (usuario.rol === "admin") {
+      // use AuthContext login which will persist and show toast
+      login(usuario);
+      if (String(usuario.rol || '').toLowerCase() === 'admin') {
         navigate("/admin/home-admin");
       } else {
         navigate("/home");
       }
     } else {
-      alert("⚠️ Correo o contraseña incorrectos");
+      notify({ title: 'Error', body: 'Correo o contraseña incorrectos', variant: 'danger' });
     }
   };
 
@@ -66,19 +61,18 @@ const InicioSesion = () => {
 
     const existe = usuarios.some((u) => u.email === email);
     if (existe) {
-      alert("⚠️ Este correo ya está registrado");
+      notify({ title: 'Error', body: 'Este correo ya está registrado', variant: 'warning' });
       return;
     }
 
     const nuevo = { nombre, email, password, rol: "user" };
     const nuevosUsuarios = [...usuarios, nuevo];
 
-    localStorage.setItem("usuarios", JSON.stringify(nuevosUsuarios));
-  localStorage.setItem("usuarioActivo", JSON.stringify(nuevo));
+  localStorage.setItem("usuarios", JSON.stringify(nuevosUsuarios));
     setUsuarios(nuevosUsuarios);
-    setUsuarioActivo(nuevo);
-
-    alert(`✅ Cuenta creada para ${nombre}`);
+    // log the user in via context
+    login(nuevo);
+    notify({ title: 'Cuenta creada', body: `Cuenta creada para ${nombre}`, variant: 'success' });
     setMostrarLogin(true);
     // redirigir al home del cliente tras registro
     navigate("/home");
@@ -86,7 +80,6 @@ const InicioSesion = () => {
 
   return (
     <div className="background-gradient">
-      <Navbar usuarioActivo={usuarioActivo} />
 
       <section className="page-header">
         <h1 className="admin-title">¡Bienvenido!</h1>
@@ -121,13 +114,13 @@ const InicioSesion = () => {
             </form>
             <p style={{ marginTop: "15px" }}>
               ¿No tienes cuenta?{" "}
-              <a
-                href="#"
+              <button
+                className="link-button"
                 onClick={() => setMostrarLogin(false)}
-                style={{ color: "#d6336c", fontWeight: "600" }}
+                style={{ color: "#d6336c", fontWeight: "600", background: 'none', border: 'none' }}
               >
                 Regístrate aquí
-              </a>
+              </button>
             </p>
           </div>
         ) : (
@@ -162,13 +155,13 @@ const InicioSesion = () => {
             </form>
             <p style={{ marginTop: "15px" }}>
               ¿Ya tienes cuenta?{" "}
-              <a
-                href="#"
+              <button
+                className="link-button"
                 onClick={() => setMostrarLogin(true)}
-                style={{ color: "#d6336c", fontWeight: "600" }}
+                style={{ color: "#d6336c", fontWeight: "600", background: 'none', border: 'none' }}
               >
                 Inicia sesión
-              </a>
+              </button>
             </p>
           </div>
         )}

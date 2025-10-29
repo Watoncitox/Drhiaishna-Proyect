@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from '../../../../context/AuthContext';
 
 export default function FormProducto({ onSave, editItem }) {
   const [form, setForm] = useState({ nombre: "", descripcion: "", precio: "" });
+  const { notify } = useAuth();
 
   useEffect(() => {
     if (editItem) {
@@ -15,7 +17,10 @@ export default function FormProducto({ onSave, editItem }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.nombre || !form.precio) return alert("Faltan datos");
+    if (!form.nombre || !form.precio) {
+      notify({ title: 'Error', body: 'Faltan datos', variant: 'warning' });
+      return;
+    }
     onSave({ ...form, precio: Number(form.precio) });
     setForm({ nombre: "", descripcion: "", precio: "" });
   };

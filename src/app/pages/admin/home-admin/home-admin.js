@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import NavbarAdmin from "../../../components/Navbar/Navbar-admin";
+// NavbarAdmin is provided globally by App.js when the user is admin.
 import "./home-admin.css";
 
 // Imágenes desde assets
@@ -15,14 +15,14 @@ const HomeAdmin = () => {
       title: "Servicios",
       text: "Agrega, edita o elimina los servicios ofrecidos en la clínica.",
       image: fondoServicio,
-      link: "/servicios-crud",
+      link: "/admin/servicios-crud",
       button: "Gestionar Servicios",
     },
     {
       title: "Clientes",
       text: "Consulta la lista completa de clientes y su información.",
       image: clientesImg,
-      link: "/clientes",
+      link: "/admin/clientes",
       button: "Ver Clientes",
     },
     // Descomenta si deseas incluir la opción RRSS o usuario
@@ -37,8 +37,6 @@ const HomeAdmin = () => {
 
   return (
     <>
-      <NavbarAdmin />
-
       <main className="home-admin-background min-vh-100 d-flex flex-column align-items-center justify-content-start">
         <section className="text-center mb-5 mt-5 pt-4">
           <h1 className="fw-bold display-5 text-danger mb-2 animate-fade">

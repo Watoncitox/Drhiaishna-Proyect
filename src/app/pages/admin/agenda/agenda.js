@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import NavbarAdmin from "../../../components/Navbar/Navbar-admin";
+// NavbarAdmin is provided globally by App.js when the user is admin.
 import "./agenda.css";
 
 import { Card, Row, Col, Button, ListGroup, Badge } from "react-bootstrap";
@@ -39,7 +39,6 @@ export default function AgendaAdmin() {
 
   return (
     <>
-      <NavbarAdmin />
       <div className="container mt-5 pt-5 agenda-page">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h2>Agenda</h2>
