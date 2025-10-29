@@ -18,12 +18,12 @@ function seed() {
 
   try {
     const list = JSON.parse(exists);
-    const needsFix = Array.isArray(list) && list.some(p => !p.imagen);
+    const needsFix = Array.isArray(list) && list.some(p => !p?.imagen || String(p.imagen).startsWith("/img/"));
     if (needsFix) {
       const imgs = [imgCrema, imgMascarilla, imgSerum];
       const fixed = list.map((p, i) => ({
         ...p,
-        imagen: p.imagen || imgs[i % imgs.length],
+        imagen: (!p?.imagen || String(p.imagen).startsWith("/img/")) ? imgs[i % imgs.length] : p.imagen,
       }));
       localStorage.setItem(KEY, JSON.stringify(fixed));
     }
