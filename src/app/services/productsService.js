@@ -1,28 +1,33 @@
+import imgCrema from "../../asent/img/fondo/crema.jpg";
+import imgMascarilla from "../../asent/img/fondo/mascarilla.jpg";
+import imgSerum from "../../asent/img/fondo/serum.jpg";
+
 const KEY = "productos";
 
 function seed() {
   const exists = localStorage.getItem(KEY);
   if (!exists) {
     const initial = [
-      { id: "p1", nombre: "Crema Facial", descripcion: "Hidratación Diaria", precio: 15990, imagen: "/img/products/p1.jpg" },
-      { id: "p2", nombre: "Mascarilla Detox", descripcion: "Purifica y revitaliza", precio: 12990, imagen: "/img/products/p3.jpg" },
-      { id: "p3", nombre: "Serum Capilar", descripcion: "Reparación intensiva", precio: 19990, imagen: "/img/products/p2.jpg" },
+      { id: "p1", nombre: "Crema Facial", descripcion: "Hidratación diaria", precio: 15990, imagen: imgCrema },
+      { id: "p2", nombre: "Mascarilla Detox", descripcion: "Purifica y revitaliza", precio: 12990, imagen: imgMascarilla },
+      { id: "p3", nombre: "Serum Capilar", descripcion: "Reparación intensiva", precio: 19990, imagen: imgSerum },
     ];
     localStorage.setItem(KEY, JSON.stringify(initial));
     return;
   }
+
   try {
     const list = JSON.parse(exists);
     const needsFix = Array.isArray(list) && list.some(p => !p.imagen);
     if (needsFix) {
+      const imgs = [imgCrema, imgMascarilla, imgSerum];
       const fixed = list.map((p, i) => ({
         ...p,
-        imagen: p.imagen || `/img/products/p${(i % 3) + 1}.jpg`,
+        imagen: p.imagen || imgs[i % imgs.length],
       }));
       localStorage.setItem(KEY, JSON.stringify(fixed));
     }
   } catch {
-    
     localStorage.removeItem(KEY);
     seed();
   }
