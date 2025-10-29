@@ -35,7 +35,7 @@ const NavbarAdmin = () => {
             <Nav className="ms-auto d-flex align-items-center gap-3">
               <Nav.Link as={NavLink} to="/admin/home-admin">Home</Nav.Link>
               <Nav.Link as={NavLink} to="/admin/clientes">Clientes</Nav.Link>
-              <Nav.Link as={NavLink} to="/admin/productos">Productos</Nav.Link> {/* ← CRUD correcto */}
+              <Nav.Link as={NavLink} to="/admin/productos">Productos</Nav.Link>
               <Nav.Link as={NavLink} to="/admin/servicios-crud">Servicios</Nav.Link>
               <Nav.Link as={NavLink} to="/admin/agenda">Agenda</Nav.Link>
               <Nav.Link as={NavLink} to="/admin/usuario">{usuario?.nombre || "Usuario"}</Nav.Link>
