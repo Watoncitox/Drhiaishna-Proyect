@@ -33,8 +33,16 @@ const NavbarCliente = ({ usuarioActivo }) => {
           <Navbar.Collapse id="cliente-navbar">
             <Nav className="ms-auto d-flex align-items-center gap-3">
               <Nav.Link as={NavLink} to="/home">Home</Nav.Link>
+              
+              {/* 💡 ENLACE DE SERVICIOS AJUSTADO: Movido a una posición más visible para el cliente */}
+              <Nav.Link as={NavLink} to="/servicios">Servicios</Nav.Link>
+              
+              <Nav.Link as={NavLink} to="/productos">Productos</Nav.Link>
+              <Nav.Link as={NavLink} to="/blogs">Blogs</Nav.Link>
+
               <Nav.Link as={NavLink} to="/nosotros">Nosotros</Nav.Link>
               <Nav.Link as={NavLink} to="/contacto">Contacto</Nav.Link>
+              
               {activo ? (
                 <>
                   <Nav.Link as={NavLink} to="/perfil">{activo.nombre}</Nav.Link>
@@ -42,9 +50,6 @@ const NavbarCliente = ({ usuarioActivo }) => {
               ) : (
                 <Nav.Link as={NavLink} to="/inicio-sesion">Iniciar Sesión</Nav.Link>
               )}
-              <Nav.Link as={NavLink} to="/servicios">Servicios</Nav.Link>
-              <Nav.Link as={NavLink} to="/productos">Productos</Nav.Link>
-              <Nav.Link as={NavLink} to="/blogs">Blogs</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

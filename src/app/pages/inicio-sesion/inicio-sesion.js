@@ -11,7 +11,7 @@ const InicioSesion = () => {
   // ===== USUARIOS BASE =====
   const usuariosBase = [
     { nombre: "Bastian Sanches", email: "ba.sanches@duocuc.cl", password: "asd123", rol: "admin" },
-    { nombre: "Matias Diaz", email: "admin2@sb.com", password: "123", rol: "admin" },
+    { nombre: "Matias Diaz", email: "mn.diaz@duocuc.cl", password: "123", rol: "admin" },
     { nombre: "Elias Delgado", email: "admin3@sb.com", password: "123", rol: "admin" },
     { nombre: "Carlos Martinez", email: "admin4@sb.com", password: "123", rol: "admin" }
   ];
