@@ -13,32 +13,18 @@ export default function TablaProductos({ data, onEdit, onDelete }) {
       </thead>
       <tbody>
         {data.length === 0 ? (
-          <tr>
-            <td colSpan="4" className="text-muted">Sin productos</td>
+          <tr><td colSpan="4" className="text-muted">Sin productos</td></tr>
+        ) : data.map((p) => (
+          <tr key={p.id}>
+            <td>{p.nombre}</td>
+            <td>{p.descripcion}</td>
+            <td>${Number(p.precio || 0).toLocaleString("es-CL")}</td>
+            <td>
+              <button className="btn btn-sm btn-outline-secondary me-2" onClick={()=>onEdit(p)}>Editar</button>
+              <button className="btn btn-sm btn-outline-danger" onClick={()=>onDelete(p.id)}>Eliminar</button>
+            </td>
           </tr>
-        ) : (
-          data.map((p) => (
-            <tr key={p.id}>
-              <td>{p.nombre}</td>
-              <td>{p.descripcion}</td>
-              <td>${Number(p.precio || 0).toLocaleString("es-CL")}</td>
-              <td>
-                <button
-                  className="btn btn-sm btn-outline-secondary me-2"
-                  onClick={() => onEdit(p)}
-                >
-                  Editar
-                </button>
-                <button
-                  className="btn btn-sm btn-outline-danger"
-                  onClick={() => onDelete(p.id)}
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          ))
-        )}
+        ))}
       </tbody>
     </table>
   );
