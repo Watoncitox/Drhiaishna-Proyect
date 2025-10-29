@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NavbarAdmin from "../../../components/Navbar/Navbar-admin";
 import "./productos-crud.css";
 import FormProducto from "./components/FormProducto";
 import TablaProductos from "./components/TablaProductos";
@@ -9,7 +8,9 @@ export default function ProductosCRUD() {
   const [list, setList] = useState([]);
   const [editItem, setEditItem] = useState(null);
 
-  useEffect(() => { setList(getProductos()); }, []);
+  useEffect(() => {
+    setList(getProductos());
+  }, []);
 
   const handleSave = (producto) => {
     if (editItem) {
@@ -28,14 +29,10 @@ export default function ProductosCRUD() {
   };
 
   return (
-    <>
-      {/* Si en App.js ya muestras Navbar por rol, puedes quitar esta línea */}
-      <NavbarAdmin />
-      <div className="productos-crud-page container mt-5 pt-5">
-        <h2>Productos (CRUD)</h2>
-        <FormProducto onSave={handleSave} editItem={editItem} />
-        <TablaProductos data={list} onEdit={setEditItem} onDelete={handleDelete} />
-      </div>
-    </>
+    <div className="productos-crud-page container mt-5 pt-5">
+      <h2>Productos (CRUD)</h2>
+      <FormProducto onSave={handleSave} editItem={editItem} />
+      <TablaProductos data={list} onEdit={setEditItem} onDelete={handleDelete} />
+    </div>
   );
 }
