@@ -2,15 +2,15 @@ import imgP1 from "../assets/img/fondo/Productos/p1.jpg";
 import imgP2 from "../assets/img/fondo/Productos/p2.jpg";
 import imgP3 from "../assets/img/fondo/Productos/p3.jpg";
 
-const KEY = "productos_v4";
+const KEY = "productos_v5";
 
 function seed() {
   const exists = localStorage.getItem(KEY);
   if (!exists) {
     const initial = [
       { id: "p1", nombre: "Crema Facial",     descripcion: "Hidratación diaria",    precio: 15990, imagen: imgP1 },
-      { id: "p2", nombre: "Mascarilla Detox", descripcion: "Purifica y revitaliza", precio: 12990, imagen: imgP2 },
-      { id: "p3", nombre: "Serum Capilar",    descripcion: "Reparación intensiva",  precio: 19990, imagen: imgP3 },
+      { id: "p3", nombre: "Mascarilla Detox", descripcion: "Purifica y revitaliza", precio: 12990, imagen: imgP3 },
+      { id: "p2", nombre: "Serum Capilar",    descripcion: "Reparación intensiva",  precio: 19990, imagen: imgP2 },
     ];
     localStorage.setItem(KEY, JSON.stringify(initial));
     return;
