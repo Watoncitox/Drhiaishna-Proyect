@@ -5,7 +5,7 @@ import FormProducto from "./components/FormProducto";
 import TablaProductos from "./components/TablaProductos";
 import { getProductos, createProducto, updateProducto, deleteProducto } from "../../../services/productsService";
 
-export default function ProductosCrudAdmin() {
+export default function ProductosCRUD() {
   const [list, setList] = useState([]);
   const [editItem, setEditItem] = useState(null);
 
@@ -29,6 +29,7 @@ export default function ProductosCrudAdmin() {
 
   return (
     <>
+      {/* Si en App.js ya muestras Navbar por rol, puedes quitar esta línea */}
       <NavbarAdmin />
       <div className="productos-crud-page container mt-5 pt-5">
         <h2>Productos (CRUD)</h2>
