@@ -21,13 +21,14 @@ export default function AgendaAdmin() {
   }, []);
 
   const grid = useMemo(() => {
-    const start = firstDayOfMonth(fecha);
     const total = daysInMonth(fecha.getFullYear(), fecha.getMonth());
     const arr = [];
     for (let i = 1; i <= total; i++) {
       const d = new Date(fecha.getFullYear(), fecha.getMonth(), i);
       const dayKey = d.toDateString();
-      const delDia = citas.filter((c) => new Date(c.fechaHora).toDateString() === dayKey);
+      const delDia = citas.filter(
+        (c) => new Date(c.fechaHora).toDateString() === dayKey
+      );
       arr.push({ d, citas: delDia });
     }
     return arr;
@@ -46,15 +47,21 @@ export default function AgendaAdmin() {
             <Button
               variant="outline-secondary"
               className="me-2"
-              onClick={() => setFecha(new Date(fecha.getFullYear(), fecha.getMonth() - 1, 1))}
+              onClick={() =>
+                setFecha(new Date(fecha.getFullYear(), fecha.getMonth() - 1, 1))
+              }
             >
               ◀
             </Button>
-            <strong>{fecha.toLocaleString("es-CL", { month: "long", year: "numeric" })}</strong>
+            <strong>
+              {fecha.toLocaleString("es-CL", { month: "long", year: "numeric" })}
+            </strong>
             <Button
               variant="outline-secondary"
               className="ms-2"
-              onClick={() => setFecha(new Date(fecha.getFullYear(), fecha.getMonth() + 1, 1))}
+              onClick={() =>
+                setFecha(new Date(fecha.getFullYear(), fecha.getMonth() + 1, 1))
+              }
             >
               ▶
             </Button>
@@ -77,7 +84,10 @@ export default function AgendaAdmin() {
                   <ListGroup variant="flush">
                     {citas.slice(0, 3).map((c) => (
                       <ListGroup.Item key={c.id} className="py-1 small">
-                        {new Date(c.fechaHora).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                        {new Date(c.fechaHora).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                         {" — "}
                         {c.cliente}
                       </ListGroup.Item>
@@ -99,7 +109,9 @@ export default function AgendaAdmin() {
             <Card>
               <Card.Header>Días con clientas</Card.Header>
               <Card.Body>
-                {diasCon.length ? diasCon.join(", ") : <span className="text-muted">N/A</span>}
+                {diasCon.length ? diasCon.join(", ") : (
+                  <span className="text-muted">N/A</span>
+                )}
               </Card.Body>
             </Card>
           </Col>
@@ -107,7 +119,9 @@ export default function AgendaAdmin() {
             <Card>
               <Card.Header>Días libres</Card.Header>
               <Card.Body>
-                {diasLibres.length ? diasLibres.join(", ") : <span className="text-muted">N/A</span>}
+                {diasLibres.length ? diasLibres.join(", ") : (
+                  <span className="text-muted">N/A</span>
+                )}
               </Card.Body>
             </Card>
           </Col>
