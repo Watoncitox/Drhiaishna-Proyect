@@ -1,6 +1,7 @@
-font-weight: 600;
+.agenda-page h2 { 
+  font-weight: 600; 
 }
 
-.agenda-page .card {
-  border-radius: 12px;
+.agenda-page .card { 
+  border-radius: 12px; 
 }
