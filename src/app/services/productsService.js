@@ -1,16 +1,16 @@
-import imgCrema from "../../asent/img/fondo/crema.jpg";
-import imgMascarilla from "../../asent/img/fondo/mascarilla.jpg";
-import imgSerum from "../../asent/img/fondo/serum.jpg";
+import imgP1 from "../assets/img/fondo/Productos/p1.jpg";
+import imgP2 from "../assets/img/fondo/Productos/p2.jpg";
+import imgP3 from "../assets/img/fondo/Productos/p3.jpg";
 
-const KEY = "productos";
+const KEY = "productos_v3"; 
 
 function seed() {
   const exists = localStorage.getItem(KEY);
   if (!exists) {
     const initial = [
-      { id: "p1", nombre: "Crema Facial", descripcion: "Hidratación diaria", precio: 15990, imagen: imgCrema },
-      { id: "p2", nombre: "Mascarilla Detox", descripcion: "Purifica y revitaliza", precio: 12990, imagen: imgMascarilla },
-      { id: "p3", nombre: "Serum Capilar", descripcion: "Reparación intensiva", precio: 19990, imagen: imgSerum },
+      { id: "p1", nombre: "Crema Facial",       descripcion: "Hidratación diaria",       precio: 15990, imagen: imgP1 },
+      { id: "p2", nombre: "Mascarilla Detox",   descripcion: "Purifica y revitaliza",     precio: 12990, imagen: imgP2 },
+      { id: "p3", nombre: "Serum Capilar",      descripcion: "Reparación intensiva",      precio: 19990, imagen: imgP3 },
     ];
     localStorage.setItem(KEY, JSON.stringify(initial));
     return;
@@ -18,13 +18,10 @@ function seed() {
 
   try {
     const list = JSON.parse(exists);
-    const needsFix = Array.isArray(list) && list.some(p => !p?.imagen || String(p.imagen).startsWith("/img/"));
+    const imgs = [imgP1, imgP2, imgP3];
+    const needsFix = Array.isArray(list) && list.some(p => !p?.imagen);
     if (needsFix) {
-      const imgs = [imgCrema, imgMascarilla, imgSerum];
-      const fixed = list.map((p, i) => ({
-        ...p,
-        imagen: (!p?.imagen || String(p.imagen).startsWith("/img/")) ? imgs[i % imgs.length] : p.imagen,
-      }));
+      const fixed = list.map((p, i) => ({ ...p, imagen: p.imagen || imgs[i % imgs.length] }));
       localStorage.setItem(KEY, JSON.stringify(fixed));
     }
   } catch {
