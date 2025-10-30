@@ -10,6 +10,19 @@
   object-fit: cover;
 }
 
+.avatar-preview-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.avatar-preview {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.06);
+}
+
 .user-avatar.placeholder {
   display: inline-flex;
   align-items: center;

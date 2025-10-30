@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Navbar, Container, Nav, Badge } from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
 import logo from "../../assets/img/logo/logo.jpg";
 import "./Navbar.css";
 import { useAuth } from '../../context/AuthContext';

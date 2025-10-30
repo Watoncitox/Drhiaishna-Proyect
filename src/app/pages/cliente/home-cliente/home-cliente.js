@@ -1,9 +1,8 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./home-cliente.css";
-import { useAuth } from '../../../context/AuthContext';
 // Importar componentes de Bootstrap
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 // Importa tus recursos multimedia
 import videoFondo from "../../../assets/video/video.mp4";
@@ -12,18 +11,13 @@ import iaImg from "../../../assets/img/fondo/nosotros/ia.png";
 
 function HomeCliente() {
   const navigate = useNavigate();
-  const { usuario, logout, notify } = useAuth();
 
   // Función del botón "Agenda tu hora"
   const agendar = () => {
     navigate("/agendar-hora");
   };
 
-  // Función de logout (si se necesita aquí)
-  const cerrarSesion = () => {
-    logout();
-    notify({ title: 'Sesión', body: 'Sesión cerrada correctamente', variant: 'warning' });
-  };
+  
 
   return (
     <div className="background-gradient">

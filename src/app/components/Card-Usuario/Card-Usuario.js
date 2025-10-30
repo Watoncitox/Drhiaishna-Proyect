@@ -13,6 +13,7 @@ export default function CardUsuario({ usuario, onSave }) {
     descripcion: usuario?.descripcion || '',
     imagen: usuario?.imagen || '',
   });
+  const [fileError, setFileError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +23,35 @@ export default function CardUsuario({ usuario, onSave }) {
   const guardar = () => {
     if (onSave) onSave({ ...usuario, ...form });
     setEditMode(false);
+  };
+
+  const handleFileChange = (e) => {
+    setFileError('');
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    // validate type
+    if (!f.type.startsWith('image/')) {
+      setFileError('Formato no válido. Selecciona una imagen.');
+      return;
+    }
+    // validate size (2 MB)
+    const maxSize = 2 * 1024 * 1024;
+    if (f.size > maxSize) {
+      setFileError('Archivo demasiado grande. Máx 2 MB.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setForm((s) => ({ ...s, imagen: reader.result }));
+    };
+    reader.onerror = () => setFileError('Error leyendo el archivo.');
+    reader.readAsDataURL(f);
+  };
+
+  const clearImage = () => {
+    setForm((s) => ({ ...s, imagen: '' }));
+    setFileError('');
   };
 
   return (
@@ -92,6 +122,20 @@ export default function CardUsuario({ usuario, onSave }) {
                 <Form.Group className="mb-2">
                   <Form.Label>Imagen (URL)</Form.Label>
                   <Form.Control name="imagen" value={form.imagen} onChange={handleChange} />
+                </Form.Group>
+
+                <Form.Group className="mb-2">
+                  <Form.Label>Subir avatar</Form.Label>
+                  <Form.Control type="file" accept="image/*" onChange={handleFileChange} />
+                  {fileError && <div className="text-danger small mt-1">{fileError}</div>}
+                  {form.imagen && (
+                    <div className="mt-2 avatar-preview-wrap">
+                      <img src={form.imagen} alt="preview" className="avatar-preview rounded-circle" />
+                      <div>
+                        <Button size="sm" variant="outline-secondary" className="mt-2" onClick={clearImage}>Quitar imagen</Button>
+                      </div>
+                    </div>
+                  )}
                 </Form.Group>
 
                 <Form.Group className="mb-2">

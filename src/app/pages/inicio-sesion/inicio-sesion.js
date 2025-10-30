@@ -3,18 +3,16 @@ import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from "react-router-dom";
 import "./inicio-sesion.css";
 
+// ===== USUARIOS BASE =====
+const usuariosBase = [
+  { nombre: "Bastian Sanches", email: "ba.sanches@duocuc.cl", password: "asd123", rol: "admin" },
+  { nombre: "Carlos Martinez", email: "admin4@sb.com", password: "123", rol: "admin" }
+];
+
 const InicioSesion = () => {
   const [mostrarLogin, setMostrarLogin] = useState(true);
   const [usuarios, setUsuarios] = useState([]);
   const { login, notify } = useAuth();
-
-  // ===== USUARIOS BASE =====
-  const usuariosBase = [
-    { nombre: "Bastian Sanches", email: "ba.sanches@duocuc.cl", password: "asd123", rol: "admin" },
-    { nombre: "Matias Diaz", email: "mn.diaz@duocuc.cl", password: "123", rol: "admin" },
-    { nombre: "Elias Delgado", email: "admin3@sb.com", password: "123", rol: "admin" },
-    { nombre: "Carlos Martinez", email: "admin4@sb.com", password: "123", rol: "admin" }
-  ];
 
   // ===== CARGA INICIAL =====
   useEffect(() => {

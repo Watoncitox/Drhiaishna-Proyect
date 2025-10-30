@@ -7,7 +7,7 @@ import "./home-admin.css";
 // Imágenes desde assets
 import fondoServicio from "../../../assets/img/fondo/servicios/fondo_servicio.png";
 import clientesImg from "../../../assets/img/fondo/servicios/clientes.png";
-import usuarioIcon from "../../../assets/img/logo/facelogo.png";
+// usuarioIcon removed (not used) to avoid lint warning
 
 const HomeAdmin = () => {
   const cards = [

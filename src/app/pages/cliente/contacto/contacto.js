@@ -1,5 +1,4 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../../../components/Navbar/Navbar.css";
 import logo from "../../../assets/img/logo/logo.jpg";
 import logoIG from "../../../assets/img/logo/logoIG.webp";
