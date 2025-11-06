@@ -61,7 +61,7 @@ function HomeCliente() {
                   unión entre <strong>Drhiaishna Martínez Miranda</strong> y nuestro
                   equipo de TI conformado por:{" "}
                   <strong>
-                    Bastian Sanches, Matias Diaz y Elias Delgado
+                    Bastian Sanches Muñoz
                   </strong>.
                 </p>
                 <p>

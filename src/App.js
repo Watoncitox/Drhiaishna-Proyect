@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // IMPORTACIONES DE BARRAS DE NAVEGACIÓN
@@ -22,6 +22,7 @@ import UsuarioAdmin from "./app/pages/admin/usuario-admin/usuario-admin";
 import ProductosCliente from "./app/pages/cliente/productos/productos";
 import ProductoDetalle from "./app/pages/cliente/producto-detalle/producto-detalle";
 import ServiciosPage from "./app/pages/cliente/servicios/servicios"; 
+import Cosmetologia from "./app/pages/cliente/servicios/cosmetologia/cosmetologia";
 import PerfilPage from "./app/pages/cliente/perfil/PerfilPage"; // 👈 NUEVA IMPORTACIÓN
 import { AuthProvider, useAuth } from "./app/context/AuthContext";
 import { ToastContainer, Toast } from 'react-bootstrap';
@@ -44,6 +45,7 @@ function AppRouter() {
         <Route path="/inicio-sesion" element={<InicioSesion />} />
         <Route path="/perfil" element={<PerfilPage />} />
         <Route path="/servicios" element={<ServiciosPage />} />
+        <Route path="/servicios/cosmetologia" element={<Cosmetologia />} />
         <Route path="/productos" element={<ProductosCliente />} />
         <Route path="/producto/:id" element={<ProductoDetalle />} />
         <Route path="/admin/home-admin" element={<RequireAdmin><HomeAdmin /></RequireAdmin>} />

@@ -1,0 +1,40 @@
+.custom-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px);
+}
+
+.custom-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.custom-card h3 {
+  margin: 16px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.saber-mas {
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 30px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.saber-mas:hover {
+  background: #d6336c;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(214, 51, 108, 0.3);
+  transform: translateY(-2px);
+}
