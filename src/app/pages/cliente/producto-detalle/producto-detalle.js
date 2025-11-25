@@ -1,68 +1,74 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { Card, Button } from "react-bootstrap";
-import { getProducto } from "../../../services/productsService";
-import Flash from "../../../components/Toast";
+import React from "react";
+import { useParams } from "react-router-dom";
+import { Button, Container, Row, Col } from "react-bootstrap";
+import NavbarCliente from "../../../components/Navbar/Navbar-cliente";
+import { useCart } from "../../../hooks/useCart";
 import "./producto-detalle.css";
 
-export default function ProductoDetalle() {
-  const { id } = useParams();
-  const [prod, setProd] = useState(null);
-  const [flash, setFlash] = useState("");
+// Puedes reemplazar esto con un JSON real más adelante
+import kerastaseImg from "../../../assets/img/fondo/Productos/kerastase.jpg";
 
-  useEffect(() => {
-    setProd(getProducto(id));
-  }, [id]);
-
-  const agregar = () => {
-    const current = JSON.parse(localStorage.getItem("carritoPending") || "[]");
-    localStorage.setItem(
-      "carritoPending",
-      JSON.stringify([
-        ...current,
-        { tipo: "producto", id: prod.id, nombre: prod.nombre, precio: prod.precio, qty: 1 },
-      ])
-    );
-    setFlash(`"${prod.nombre}" agregado (pendiente de Carrito)`);
-    setTimeout(() => setFlash(""), 2600);
-  };
-
-  if (!prod) {
-    return (
-      <>
-        <div className="container mt-5 pt-5 producto-detalle-page">Producto no encontrado</div>
-      </>
-    );
+const mockProductos = {
+  1: {
+    id: 1,
+    nombre: "Shampoo Kerastase Nutritive",
+    img: kerastaseImg,
+    precio: 24990,
+    descripcion:
+      "Shampoo nutritivo premium diseñado para cabellos secos, opacos y sin vida.",
+    beneficios: [
+      "Nutre profundamente la fibra capilar",
+      "Hidrata sin dejar pesado",
+      "Restaura suavidad y brillo",
+      "Fórmula premium rica en lípidos"
+    ],
   }
+};
+
+const ProductoDetalle = () => {
+  const { id } = useParams();
+  const producto = mockProductos[id];
+  const { addToCart } = useCart();
 
   return (
-    <>
-      {/* Navbar provided by AppRouter via AuthContext */}
-      {flash && <Flash initial={flash} />}
-      <div className="container mt-5 pt-5 producto-detalle-page">
-        <Card className="p-4">
-          <div className="row g-4">
-            <div className="col-md-5">
-              {prod.imagen ? (
-                <img src={prod.imagen} className="img-fluid rounded" alt={prod.nombre} />
-              ) : (
-                <div className="bg-light rounded" style={{ height: 240 }} />
-              )}
-            </div>
-            <div className="col-md-7">
-              <h3>{prod.nombre}</h3>
-              <p className="text-muted">{prod.descripcion}</p>
-              <h4 className="mb-3">
-                ${Number(prod.precio || 0).toLocaleString("es-CL")}
-              </h4>
-              <Button onClick={agregar}>Agregar</Button>
-              <Link to="/productos" className="btn btn-outline-secondary ms-2">
-                Volver
-              </Link>
-            </div>
-          </div>
-        </Card>
-      </div>
-    </>
+    <div className="background-detalle">
+      <NavbarCliente />
+
+      <Container className="detalle-container">
+        <Row className="align-items-center">
+          <Col md={6}>
+            <img src={producto.img} alt={producto.nombre} className="detalle-img" />
+          </Col>
+
+          <Col md={6}>
+            <h1 className="detalle-title">{producto.nombre}</h1>
+            <p className="detalle-descripcion">{producto.descripcion}</p>
+
+            <h4 className="detalle-sub">Beneficios</h4>
+            <ul className="detalle-list">
+              {producto.beneficios.map((b, i) => (
+                <li key={i}>{b}</li>
+              ))}
+            </ul>
+
+            <h3 className="precio">${producto.precio}</h3>
+
+            <Button
+              variant="danger"
+              className="btn-add"
+              onClick={() => addToCart(producto)}
+            >
+              Agregar al carrito
+            </Button>
+
+            <Button variant="success" className="btn-buy">
+              Comprar ahora
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
-}
+};
+
+export default ProductoDetalle;

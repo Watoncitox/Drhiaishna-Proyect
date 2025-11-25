@@ -1,13 +1,14 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./home-cliente.css";
+import HeroBanner from "../../../components/Hero/HeroBanner";
 // Importar componentes de Bootstrap
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 // Importa tus recursos multimedia
-import videoFondo from "../../../assets/video/video.mp4";
 import dryImg from "../../../assets/img/fondo/dry/presentacion.jpg";
 import iaImg from "../../../assets/img/fondo/nosotros/ia.png";
+import fondoHome from "../../../assets/video/video.mp4";
 
 function HomeCliente() {
   const navigate = useNavigate();
@@ -23,22 +24,17 @@ function HomeCliente() {
     <div className="background-gradient">
 
       {/* ===== Hero principal ===== */}
-      <section className="hero-section">
-        <video autoPlay muted loop playsInline className="hero-bg">
-          <source src={videoFondo} type="video/mp4" />
-        </video>
-        <div className="hero-overlay">
-          <h1 className="hero-title">
-            Bienvenida a <span className="highlight">Nuestra Clínica Estética</span>
-          </h1>
-          <p className="hero-subtitle">
-            Cuidamos tu <strong>belleza</strong> y <strong>bienestar</strong>
-          </p>
-          <button className="cta-btn" onClick={agendar}>
-            <span>📅</span> Agenda tu Hora
-          </button>
-        </div>
-      </section>
+    <div className="container-fluid py-5">
+      <HeroBanner
+        title="Bienvenida a Nuestra Clínica Estética"
+        subtitle="Cuidamos tu belleza y bienestar"
+        buttonText="Agenda tu Hora"
+        onButtonClick={agendar}
+        backgroundVideo={fondoHome}
+        gradient="rgba(0, 0, 0, 0.55)"
+      />
+      {/* Aquí puedes seguir con secciones: servicios destacados, productos, etc. */}
+    </div>
 
       {/* ===== Contenido Principal ===== */}
       <main>

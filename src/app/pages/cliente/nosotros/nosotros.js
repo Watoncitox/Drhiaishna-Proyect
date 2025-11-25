@@ -2,22 +2,13 @@
 import React from "react";
 import { Container, Row, Col } from 'react-bootstrap';
 import "./nosotros.css";
-import GlobalCard from '../../../components/Global-Card/Global-Card';
-
+import GlobalCard from '../../../components/Card/Global-Card/Global-Card';
+import HeroBanner from "../../../components/Hero/HeroBanner";
 // Importar las imágenes
-import matiasImg from "../../../assets/img/fondo/nosotros/matias.jpg";
 import bastianImg from "../../../assets/img/fondo/nosotros/bastian.jpg";
-import eliasImg from "../../../assets/img/fondo/nosotros/Foto_de_perfil_formal.jpg";
+import fondoNosotros from "../../../assets/img/fondo/nosotros/fondo_nosotros.png";
 
 const equipo = [
-  {
-    nombre: "Matias Diaz",
-    especialidad: "Backend Developer",
-    descripcion:
-      "Mi pasión radica en la lógica del lado del servidor y la gestión de bases de datos. Disfruto optimizando el rendimiento y asegurando la robustez de las aplicaciones.",
-    foto: matiasImg,
-    github: "https://github.com/Na1kox-AFK",
-  },
   {
     nombre: "Bastian Sanches",
     especialidad: "Frontend Developer",
@@ -26,14 +17,6 @@ const equipo = [
     foto: bastianImg,
     github: "https://github.com/Watoncitox",
   },
-  {
-    nombre: "Elias Delgado",
-    especialidad: "Data Scientist",
-    descripcion:
-      "Me fascinan los datos y cómo pueden contar historias. Mi objetivo es extraer información valiosa para tomar decisiones inteligentes y construir modelos predictivos.",
-    foto: eliasImg,
-    github: "https://github.com/ChicoElias",
-  },
 ];
 
 const Nosotros = () => {
@@ -41,10 +24,24 @@ const Nosotros = () => {
     <>
 
 
-      <section className="page-header">
-        <h1>Nuestro Equipo de Desarrollo</h1>
-        <p>Apasionados por la informática, construyendo el futuro, línea a línea.</p>
+    <div className="container-fluid py-5">
+      <HeroBanner
+        title="Conoce a Nuestro Equipo"
+        subtitle="Profesionales dedicados a realzar tu belleza natural"
+        buttonText="Ver más"
+        backgroundImage={fondoNosotros}
+        gradient="rgba(0, 0, 0, 0.5)"
+        textGradient="linear-gradient(90deg, #ff8dcf, #b36bff)"
+      />
+
+      <section className="container my-5 text-center">
+        <h2 className="fw-bold mb-4 text-secondary">Nuestra Historia</h2>
+        <p className="lead text-muted">
+          Somos un equipo comprometido con tu bienestar y confianza. En nuestra clínica,
+          cada tratamiento está pensado para realzar tu belleza natural con la más alta calidad.
+        </p>
       </section>
+    </div>
 
       <Container>
         <Row className="justify-content-center">

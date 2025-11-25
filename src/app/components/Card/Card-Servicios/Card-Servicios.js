@@ -1,24 +1,20 @@
+// src/app/components/Card/Card-Servicios/Card-Servicios.js
 import React from "react";
-import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./ServicioCard.css";
+import CardBase from "../CardBase";
+import "./Card-Servicios.css";
 
-const ServicioCard = ({ titulo, imagen, link }) => {
+export default function CardServicios({ titulo, imagen, link }) {
   const navigate = useNavigate();
 
   return (
-    <div className="custom-card">
-      <img src={imagen} alt={titulo} />
-      <h3>{titulo}</h3>
-      <Button
-        variant="outline-danger"
-        className="saber-mas"
-        onClick={() => navigate(link)}
-      >
-        Ver más detalles
-      </Button>
-    </div>
+    <CardBase
+      image={imagen}
+      title={titulo}
+      buttonText="Ver más detalles"
+      onButtonClick={() => navigate(link)}
+      className="card-servicio"
+      height={220}
+    />
   );
-};
-
-export default ServicioCard;
+}

@@ -1,19 +1,14 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// IMPORTACIONES DE BARRAS DE NAVEGACIÓN
 import NavbarCliente from "./app/components/Navbar/Navbar-cliente";
 import NavbarAdmin from "./app/components/Navbar/Navbar-admin";     
-
-// Importaciones de Vistas y Componentes existentes
 import HomeCliente from "./app/pages/cliente/home-cliente/home-cliente";
 import HomeAdmin from "./app/pages/admin/home-admin/home-admin";
 import RequireAdmin from "./app/components/Auth/RequireAdmin";
 import Contacto from "./app/pages/cliente/contacto/contacto";
 import Nosotros from "./app/pages/cliente/nosotros/nosotros";
 import InicioSesion from "./app/pages/inicio-sesion/inicio-sesion";
-
-// ELÍAS DELGADO // IMPORTS DE LAS VISTAS:
 import ClientesAdmin from "./app/pages/admin/clientes/clientes";
 import AgendaAdmin from "./app/pages/admin/agenda/agenda";
 import ProductosCRUD from "./app/pages/admin/productos-crud/productos-crud";
@@ -23,7 +18,7 @@ import ProductosCliente from "./app/pages/cliente/productos/productos";
 import ProductoDetalle from "./app/pages/cliente/producto-detalle/producto-detalle";
 import ServiciosPage from "./app/pages/cliente/servicios/servicios"; 
 import Cosmetologia from "./app/pages/cliente/servicios/cosmetologia/cosmetologia";
-import PerfilPage from "./app/pages/cliente/perfil/PerfilPage"; // 👈 NUEVA IMPORTACIÓN
+import PerfilPage from "./app/pages/cliente/perfil/PerfilPage"; 
 import { AuthProvider, useAuth } from "./app/context/AuthContext";
 import { ToastContainer, Toast } from 'react-bootstrap';
 

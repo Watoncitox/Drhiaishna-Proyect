@@ -5,9 +5,6 @@ import "./agenda.css";
 import { Card, Row, Col, Button, ListGroup, Badge } from "react-bootstrap";
 import { listCitas } from "../../../services/appointmentsService";
 
-function firstDayOfMonth(d) {
-  return new Date(d.getFullYear(), d.getMonth(), 1);
-}
 function daysInMonth(y, m) {
   return new Date(y, m + 1, 0).getDate();
 }

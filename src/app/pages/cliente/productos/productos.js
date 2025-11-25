@@ -1,76 +1,77 @@
-import React, { useEffect, useState } from "react";
-import { Card, Button, Row, Col } from "react-bootstrap";
-import { getProductos } from "../../../services/productsService";
-import Flash from "../../../components/Toast";
-import { Link } from "react-router-dom";
+import React from "react";
+import NavbarCliente from "../../../components/Navbar/Navbar-cliente";
+import HeroBanner from "../../../components/Hero/HeroBanner";
+import MarcaCard from "../../../components/Card/Card-Productos/Card-Productos";
 import "./productos.css";
 
-export default function ProductosCliente() {
-  const [productos, setProductos] = useState([]);
-  const [flash, setFlash] = useState("");
+// Import de imágenes
+import productosFondo from "../../../assets/img/fondo/Productos/productosFondo.png";
+import kerastaseImg from "../../../assets/img/fondo/Productos/kerastase.jpg";
+import lorealImg from "../../../assets/img/fondo/Productos/loreal.jpg";
 
-  useEffect(() => {
-    setProductos(getProductos());
-  }, []);
-
-  const agregar = (p) => {
-    const current = JSON.parse(localStorage.getItem("carritoPending") || "[]");
-    localStorage.setItem(
-      "carritoPending",
-      JSON.stringify([
-        ...current,
-        { tipo: "producto", id: p.id, nombre: p.nombre, precio: p.precio, qty: 1 },
-      ])
-    );
-    setFlash(`"${p.nombre}" agregado (pendiente de Carrito)`);
-    setTimeout(() => setFlash(""), 2600);
-  };
+const ProductosPage = () => {
+  const marcas = [
+    {
+      titulo: "Kerastase",
+      imagen: kerastaseImg,
+      descripcion:
+        "En DYB confiamos en Kerastase porque comparte nuestra visión de un cuidado capilar de lujo, personalizado y con resultados visibles desde la primera aplicación.",
+      parrafos: [
+        "Cada línea de productos está desarrollada con una base científica sólida, lo que garantiza un equilibrio perfecto entre eficacia y sensorialidad.",
+        "Elegimos Kerastase porque entendemos que cada persona merece un tratamiento exclusivo, diseñado para potenciar la belleza natural de su cabello.",
+      ],
+      beneficios: [
+        "Tratamientos adaptados a cada tipo de cabello y cuero cabelludo.",
+        "Innovación constante respaldada por la investigación científica.",
+        "Resultados visibles: más fuerza, brillo y suavidad.",
+        "Experiencia sensorial premium en cada uso.",
+      ],
+    },
+    {
+      titulo: "L'Oréal Professionnel",
+      imagen: lorealImg,
+      descripcion:
+        "En DYB trabajamos con L'Oréal Professionnel porque es una marca líder en innovación y tendencias, siempre a la vanguardia del cuidado profesional.",
+      parrafos: [
+        "Sus productos combinan la experiencia científica con la creatividad, ofreciendo soluciones que transforman el cabello con resultados profesionales.",
+        "Confiamos en L'Oréal porque nos permite ofrecer a nuestros clientes lo mejor en moda capilar, color y cuidado, garantizando siempre un resultado saludable y de calidad.",
+      ],
+      beneficios: [
+        "Coloraciones de alta precisión y larga duración.",
+        "Amplia gama de productos para todo tipo de cabello.",
+        "Innovaciones tecnológicas para reparación y nutrición profunda.",
+        "Respaldo de expertos en peluquería a nivel mundial.",
+      ],
+      reverse: true,
+    },
+  ];
 
   return (
-    <>
-      {/* Navbar provided by AppRouter via AuthContext */}
-      {flash && <Flash initial={flash} />}
-      <div className="container mt-5 pt-5 productos-page">
-        <h2 className="mb-4">Productos</h2>
+    <div className="background-gradient">
+      <NavbarCliente />
 
-        {productos.length === 0 ? (
-          <p className="text-muted">No hay productos disponibles.</p>
-        ) : (
-          <Row xs={1} md={3} className="g-4">
-            {productos.map((p) => (
-              <Col key={p.id}>
-                <Card className="h-100">
-                  {p.imagen ? (
-                    <Card.Img variant="top" src={p.imagen} alt={p.nombre} />
-                  ) : (
-                    <div className="bg-light" style={{ height: 160 }} />
-                  )}
-                  <Card.Body>
-                    <Card.Title>{p.nombre}</Card.Title>
-                    <Card.Text className="small text-muted">{p.descripcion}</Card.Text>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <strong>
-                        ${Number(p.precio || 0).toLocaleString("es-CL")}
-                      </strong>
-                      <div>
-                        <Link
-                          to={`/producto/${p.id}`}
-                          className="btn btn-outline-secondary btn-sm me-2"
-                        >
-                          Detalles
-                        </Link>
-                        <Button size="sm" onClick={() => agregar(p)}>
-                          Agregar
-                        </Button>
-                      </div>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        )}
+      {/* Hero principal */}
+      <div className="container-fluid py-5">
+        <HeroBanner
+          title="DYB"
+          subtitle="Productos"
+          backgroundImage={productosFondo}
+          gradient="rgba(0, 0, 0, 0.25)"
+          textGradient="linear-gradient(135deg, #f7e6eb 0%, #f8c6c8 50%, #eab1c6 100%)"
+        />
       </div>
-    </>
+
+      {/* Sección de marcas */}
+      {marcas.map((marca, i) => (
+        <MarcaCard key={i} {...marca} />
+      ))}
+
+      {/* Separador decorativo */}
+      <div className="custom-separator">
+        <span className="separator-text">Comprometidos con la experiencia</span>
+      </div>
+    </div>
   );
-}
+};
+
+export default ProductosPage;

@@ -1,55 +1,18 @@
+/* src/app/components/Card/Global-Card/Global-Card.css */
 .global-card {
-  border-radius: 12px;
-  overflow: hidden;
+  max-width: 360px;
 }
 
-.global-card-img-wrap {
-  height: 270px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-  padding: 12px; /* give inner margin so image doesn't touch card edges */
+.global-card img {
+  height: 240px;
 }
 
-.global-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px; /* slight rounding for a modern look */
-}
-
-.global-card-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-.global-card-subtitle {
-  font-size: 0.95rem;
-}
-
-.global-card-desc {
-  color: #6c757d;
-}
-
-/* Improve button appearance inside global card */
 .global-card .btn {
-  --bs-btn-bg: transparent;
-  --bs-btn-border-color: #d6336c;
-  color: #d6336c;
-  border-radius: 30px;
-  border-width: 2px;
-  padding: 0.45rem 1rem;
-  transition: all 0.18s ease;
-}
-.global-card .btn:hover {
-  background: linear-gradient(90deg,#d6336c,#f06292);
-  color: #fff;
-  border-color: transparent;
-  transform: translateY(-2px);
+  border-color: #000;
+  color: #000;
 }
 
-@media (max-width: 768px) {
-  .global-card-img-wrap { height: 140px; }
+.global-card .btn:hover {
+  background-color: #000;
+  color: #fff;
 }

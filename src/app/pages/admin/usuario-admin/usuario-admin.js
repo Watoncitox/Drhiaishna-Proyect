@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import CardUsuario from '../../../components/Card-Usuario/Card-Usuario';
+import CardUsuario from '../../../components/Card/Card-Usuario/Card-Usuario';
 import './usuario-admin.css';
 import { useAuth } from '../../../context/AuthContext';
 
