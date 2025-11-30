@@ -23,7 +23,8 @@ import ManicurePedicure from "./app/pages/cliente/servicios/manicure-pedicure/ma
 import CorteColor from "./app/pages/cliente/servicios/peluqueria/corte-color";
 import Maquillaje from "./app/pages/cliente/servicios/maquillaje/maquillaje";
 import Capilares from "./app/pages/cliente/servicios/tratamientos-capilares/capilares";
-import PerfilPage from "./app/pages/cliente/perfil/PerfilPage"; 
+import PerfilPage from "./app/pages/cliente/perfil/PerfilPage";
+import AgendarHora from "./app/pages/cliente/agendar-hora/agendar-hora";
 import { AuthProvider, useAuth } from "./app/context/AuthContext";
 import { ToastContainer, Toast } from 'react-bootstrap';
 
@@ -51,7 +52,8 @@ function AppRouter() {
           <Route path="/servicios/corte-y-color" element={<CorteColor />} />
           <Route path="/servicios/maquillaje" element={<Maquillaje />} />
           <Route path="/servicios/capilares" element={<Capilares />} />
-        <Route path="/productos" element={<ProductosCliente />} />
+          <Route path="/agendar-hora" element={<AgendarHora />} />
+          <Route path="/productos" element={<ProductosCliente />} />
         <Route path="/producto/:id" element={<ProductoDetalle />} />
         <Route path="/admin/home-admin" element={<RequireAdmin><HomeAdmin /></RequireAdmin>} />
         <Route path="/admin/clientes" element={<RequireAdmin><ClientesAdmin /></RequireAdmin>} />
