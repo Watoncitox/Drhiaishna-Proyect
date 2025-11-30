@@ -81,3 +81,52 @@
 .social-links a:hover {
   background: #c67ac7;
 }
+
+/* ==== Sección Dry (Fundadora) ==== */
+
+.dry-section {
+    background: #ffffff;
+}
+
+.dry-photo {
+    max-width: 260px;
+    width: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
+
+.dry-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333333;
+}
+
+.dry-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #c67ac7;
+}
+
+.dry-description {
+    color: #555555;
+    line-height: 1.7;
+}
+
+.dry-list {
+    margin-top: 10px;
+    padding-left: 1.2rem;
+    color: #444444;
+}
+
+.dry-list li {
+    margin-bottom: 6px;
+}
+
+.dry-quote {
+    margin-top: 12px;
+    font-style: italic;
+    color: #888888;
+    border-left: 4px solid #c67ac7;
+    padding-left: 12px;
+}
