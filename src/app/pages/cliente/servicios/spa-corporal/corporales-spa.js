@@ -1,45 +1,44 @@
-// src/app/pages/cliente/servicios/Cosmetologia.js
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import "./cosmetologia.css";
+import "./corporales-spa.css";
 
 import HeroBanner from "../../../../components/Hero/HeroBanner";
 import GlobalCard from "../../../../components/Card/Global-Card/Global-Card";
 
 import fondo from "../../../../assets/img/fondo/servicios/fondo_servicio.png";
-import cosmetologiaImg from "../../../../assets/img/servicios/cosmetologia.jpg";
+import corporalesImg from "../../../../assets/img/servicios/corporales.jpg";
 
 const servicios = [
     {
-        nombre: "Limpieza Facial Profunda",
+        nombre: "Masajes Descontracturantes",
         descripcion:
-            "Renueva y purifica tu piel con una limpieza profesional personalizada.",
-        imagen: cosmetologiaImg,
+            "Alivia tensiones musculares y mejora tu bienestar físico y mental.",
+        imagen: corporalesImg,
         link: "/agendar-hora",
     },
     {
-        nombre: "Hidratación Facial Intensiva",
+        nombre: "Masaje Relajación Premium",
         descripcion:
-            "Recupera la suavidad y luminosidad de tu piel con técnicas avanzadas.",
-        imagen: cosmetologiaImg,
+            "Técnica suave y profunda para reducir el estrés y renovar energías.",
+        imagen: corporalesImg,
         link: "/agendar-hora",
     },
     {
-        nombre: "Tratamiento Anti-Edad",
+        nombre: "Limpieza Corporal & Spa",
         descripcion:
-            "Técnicas enfocadas en atenuar líneas de expresión y mejorar la firmeza.",
-        imagen: cosmetologiaImg,
+            "Un tratamiento completo para exfoliar, hidratar y revitalizar tu cuerpo.",
+        imagen: corporalesImg,
         link: "/agendar-hora",
     },
 ];
 
-export default function Cosmetologia() {
+export default function CorporalesSpa() {
     return (
         <>
             <div className="container-fluid py-5">
                 <HeroBanner
-                    title="Cosmetología"
-                    subtitle="Tratamientos faciales profesionales para cuidar y rejuvenecer tu piel"
+                    title="Tratamientos Corporales y Spa"
+                    subtitle="Bienestar, equilibrio y renovación completa para tu cuerpo"
                     buttonText="Agendar hora"
                     buttonLink="/agendar-hora"
                     backgroundImage={fondo}
@@ -50,9 +49,10 @@ export default function Cosmetologia() {
 
             <Container className="my-5">
                 <Row className="text-center mb-4">
-                    <h2 className="fw-bold text-secondary">Tratamientos Disponibles</h2>
+                    <h2 className="fw-bold text-secondary">Servicios Disponibles</h2>
                     <p className="text-muted">
-                        Elige uno de nuestros servicios especializados en cuidado facial.
+                        Selecciona uno de nuestros tratamientos corporales y disfruta una
+                        experiencia de relajación profunda.
                     </p>
                 </Row>
 

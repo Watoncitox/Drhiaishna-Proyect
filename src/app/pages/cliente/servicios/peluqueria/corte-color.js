@@ -1,45 +1,45 @@
-// src/app/pages/cliente/servicios/Cosmetologia.js
+// src/app/pages/cliente/servicios/CorteColor.js
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import "./cosmetologia.css";
+import "./corte-color.css";
 
 import HeroBanner from "../../../../components/Hero/HeroBanner";
 import GlobalCard from "../../../../components/Card/Global-Card/Global-Card";
 
 import fondo from "../../../../assets/img/fondo/servicios/fondo_servicio.png";
-import cosmetologiaImg from "../../../../assets/img/servicios/cosmetologia.jpg";
+import corteImg from "../../../../assets/img/servicios/corte.jpg";
 
 const servicios = [
     {
-        nombre: "Limpieza Facial Profunda",
+        nombre: "Corte",
         descripcion:
-            "Renueva y purifica tu piel con una limpieza profesional personalizada.",
-        imagen: cosmetologiaImg,
+            "Corte personalizado según tus facciones, estilo y tipo de cabello.",
+        imagen: corteImg,
         link: "/agendar-hora",
     },
     {
-        nombre: "Hidratación Facial Intensiva",
+        nombre: "Coloración Completa",
         descripcion:
-            "Recupera la suavidad y luminosidad de tu piel con técnicas avanzadas.",
-        imagen: cosmetologiaImg,
+            "Color perfecto con productos de alta calidad para un acabado uniforme.",
+        imagen: corteImg,
         link: "/agendar-hora",
     },
     {
-        nombre: "Tratamiento Anti-Edad",
+        nombre: "Mechas & Balayage",
         descripcion:
-            "Técnicas enfocadas en atenuar líneas de expresión y mejorar la firmeza.",
-        imagen: cosmetologiaImg,
+            "Técnicas modernas para aportar luz, movimiento y naturalidad a tu cabello.",
+        imagen: corteImg,
         link: "/agendar-hora",
     },
 ];
 
-export default function Cosmetologia() {
+export default function CorteColor() {
     return (
         <>
             <div className="container-fluid py-5">
                 <HeroBanner
-                    title="Cosmetología"
-                    subtitle="Tratamientos faciales profesionales para cuidar y rejuvenecer tu piel"
+                    title="Corte, Estilismo y Color"
+                    subtitle="Transforma tu imagen con técnicas profesionales y modernas"
                     buttonText="Agendar hora"
                     buttonLink="/agendar-hora"
                     backgroundImage={fondo}
@@ -50,9 +50,9 @@ export default function Cosmetologia() {
 
             <Container className="my-5">
                 <Row className="text-center mb-4">
-                    <h2 className="fw-bold text-secondary">Tratamientos Disponibles</h2>
+                    <h2 className="fw-bold text-secondary">Servicios Disponibles</h2>
                     <p className="text-muted">
-                        Elige uno de nuestros servicios especializados en cuidado facial.
+                        Elige uno de nuestros servicios para renovar tu estilo.
                     </p>
                 </Row>
 

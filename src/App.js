@@ -18,6 +18,11 @@ import ProductosCliente from "./app/pages/cliente/productos/productos";
 import ProductoDetalle from "./app/pages/cliente/producto-detalle/producto-detalle";
 import ServiciosPage from "./app/pages/cliente/servicios/servicios"; 
 import Cosmetologia from "./app/pages/cliente/servicios/cosmetologia/cosmetologia";
+import CorporalesSpa from "./app/pages/cliente/servicios/spa-corporal/corporales-spa";
+import ManicurePedicure from "./app/pages/cliente/servicios/manicure-pedicure/manicure-pedicure";
+import CorteColor from "./app/pages/cliente/servicios/peluqueria/corte-color";
+import Maquillaje from "./app/pages/cliente/servicios/maquillaje/maquillaje";
+import Capilares from "./app/pages/cliente/servicios/tratamientos-capilares/capilares";
 import PerfilPage from "./app/pages/cliente/perfil/PerfilPage"; 
 import { AuthProvider, useAuth } from "./app/context/AuthContext";
 import { ToastContainer, Toast } from 'react-bootstrap';
@@ -40,7 +45,12 @@ function AppRouter() {
         <Route path="/inicio-sesion" element={<InicioSesion />} />
         <Route path="/perfil" element={<PerfilPage />} />
         <Route path="/servicios" element={<ServiciosPage />} />
-        <Route path="/servicios/cosmetologia" element={<Cosmetologia />} />
+          <Route path="/servicios/cosmetologia" element={<Cosmetologia />} />
+          <Route path="/servicios/corporales" element={<CorporalesSpa />} />
+          <Route path="/servicios/manicure" element={<ManicurePedicure />} />
+          <Route path="/servicios/corte-y-color" element={<CorteColor />} />
+          <Route path="/servicios/maquillaje" element={<Maquillaje />} />
+          <Route path="/servicios/capilares" element={<Capilares />} />
         <Route path="/productos" element={<ProductosCliente />} />
         <Route path="/producto/:id" element={<ProductoDetalle />} />
         <Route path="/admin/home-admin" element={<RequireAdmin><HomeAdmin /></RequireAdmin>} />

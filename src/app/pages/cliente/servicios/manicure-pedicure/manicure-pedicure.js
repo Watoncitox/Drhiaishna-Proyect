@@ -1,45 +1,45 @@
-// src/app/pages/cliente/servicios/Cosmetologia.js
+// src/app/pages/cliente/servicios/ManicurePedicure.js
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import "./cosmetologia.css";
+import "./manicure-pedicure.css";
 
 import HeroBanner from "../../../../components/Hero/HeroBanner";
 import GlobalCard from "../../../../components/Card/Global-Card/Global-Card";
 
 import fondo from "../../../../assets/img/fondo/servicios/fondo_servicio.png";
-import cosmetologiaImg from "../../../../assets/img/servicios/cosmetologia.jpg";
+import manicureImg from "../../../../assets/img/servicios/manicure.jpg";
 
 const servicios = [
     {
-        nombre: "Limpieza Facial Profunda",
+        nombre: "Manicure Spa",
         descripcion:
-            "Renueva y purifica tu piel con una limpieza profesional personalizada.",
-        imagen: cosmetologiaImg,
+            "Incluye exfoliación, hidratación profunda y esmaltado profesional.",
+        imagen: manicureImg,
         link: "/agendar-hora",
     },
     {
-        nombre: "Hidratación Facial Intensiva",
+        nombre: "Pedicure Spa",
         descripcion:
-            "Recupera la suavidad y luminosidad de tu piel con técnicas avanzadas.",
-        imagen: cosmetologiaImg,
+            "Tratamiento completo para suavizar, hidratar y revitalizar tus pies.",
+        imagen: manicureImg,
         link: "/agendar-hora",
     },
     {
-        nombre: "Tratamiento Anti-Edad",
+        nombre: "Esmaltado Permanente",
         descripcion:
-            "Técnicas enfocadas en atenuar líneas de expresión y mejorar la firmeza.",
-        imagen: cosmetologiaImg,
+            "Color duradero, brillante y resistente por hasta 3 semanas.",
+        imagen: manicureImg,
         link: "/agendar-hora",
     },
 ];
 
-export default function Cosmetologia() {
+export default function ManicurePedicure() {
     return (
         <>
             <div className="container-fluid py-5">
                 <HeroBanner
-                    title="Cosmetología"
-                    subtitle="Tratamientos faciales profesionales para cuidar y rejuvenecer tu piel"
+                    title="Manicure y Pedicure"
+                    subtitle="Cuidado profesional para resaltar la belleza natural de tus manos y pies"
                     buttonText="Agendar hora"
                     buttonLink="/agendar-hora"
                     backgroundImage={fondo}
@@ -50,9 +50,9 @@ export default function Cosmetologia() {
 
             <Container className="my-5">
                 <Row className="text-center mb-4">
-                    <h2 className="fw-bold text-secondary">Tratamientos Disponibles</h2>
+                    <h2 className="fw-bold text-secondary">Servicios Disponibles</h2>
                     <p className="text-muted">
-                        Elige uno de nuestros servicios especializados en cuidado facial.
+                        Elige entre nuestros tratamientos especializados en manos y pies.
                     </p>
                 </Row>
 

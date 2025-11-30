@@ -1,8 +1,8 @@
-.cosmetologia-container {
+.maquillaje-container {
     padding: 40px 0;
 }
 
-.cosmetologia-card img {
+.maquillaje-card img {
     object-fit: cover;
     border-radius: 14px;
 }

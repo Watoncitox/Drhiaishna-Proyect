@@ -1,45 +1,52 @@
-// src/app/pages/cliente/servicios/Cosmetologia.js
+// src/app/pages/cliente/servicios/Maquillaje.js
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import "./cosmetologia.css";
+import "./maquillaje.css";
 
 import HeroBanner from "../../../../components/Hero/HeroBanner";
 import GlobalCard from "../../../../components/Card/Global-Card/Global-Card";
 
 import fondo from "../../../../assets/img/fondo/servicios/fondo_servicio.png";
-import cosmetologiaImg from "../../../../assets/img/servicios/cosmetologia.jpg";
+import maquillajeImg from "../../../../assets/img/servicios/maquillaje.jpg";
 
 const servicios = [
     {
-        nombre: "Limpieza Facial Profunda",
+        nombre: "Maquillaje Social",
         descripcion:
-            "Renueva y purifica tu piel con una limpieza profesional personalizada.",
-        imagen: cosmetologiaImg,
+            "Maquillaje profesional para eventos, celebraciones y ocasiones especiales.",
+        imagen: maquillajeImg,
         link: "/agendar-hora",
     },
     {
-        nombre: "Hidratación Facial Intensiva",
+        nombre: "Maquillaje Día/Noche",
         descripcion:
-            "Recupera la suavidad y luminosidad de tu piel con técnicas avanzadas.",
-        imagen: cosmetologiaImg,
+            "Looks personalizados según tu estilo, vestimenta y ocasión.",
+        imagen: maquillajeImg,
         link: "/agendar-hora",
     },
     {
-        nombre: "Tratamiento Anti-Edad",
+        nombre: "Maquillaje para Sesiones",
         descripcion:
-            "Técnicas enfocadas en atenuar líneas de expresión y mejorar la firmeza.",
-        imagen: cosmetologiaImg,
+            "Ideal para sesiones fotográficas, branding, moda y contenido profesional.",
+        imagen: maquillajeImg,
+        link: "/agendar-hora",
+    },
+    {
+        nombre: "Maquillaje de Novia",
+        descripcion:
+            "Produccion completa para el día más especial de tu vida",
+        imagen: maquillajeImg,
         link: "/agendar-hora",
     },
 ];
 
-export default function Cosmetologia() {
+export default function Maquillaje() {
     return (
         <>
             <div className="container-fluid py-5">
                 <HeroBanner
-                    title="Cosmetología"
-                    subtitle="Tratamientos faciales profesionales para cuidar y rejuvenecer tu piel"
+                    title="Maquillaje Profesional"
+                    subtitle="Resalta tu belleza en cada ocasión con técnicas expertas"
                     buttonText="Agendar hora"
                     buttonLink="/agendar-hora"
                     backgroundImage={fondo}
@@ -50,9 +57,9 @@ export default function Cosmetologia() {
 
             <Container className="my-5">
                 <Row className="text-center mb-4">
-                    <h2 className="fw-bold text-secondary">Tratamientos Disponibles</h2>
+                    <h2 className="fw-bold text-secondary">Servicios Disponibles</h2>
                     <p className="text-muted">
-                        Elige uno de nuestros servicios especializados en cuidado facial.
+                        Elige uno de nuestros servicios de maquillaje profesional.
                     </p>
                 </Row>
 

@@ -1,45 +1,45 @@
-// src/app/pages/cliente/servicios/Cosmetologia.js
+// src/app/pages/cliente/servicios/Capilares.js
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import "./cosmetologia.css";
+import "./capilares.css";
 
 import HeroBanner from "../../../../components/Hero/HeroBanner";
 import GlobalCard from "../../../../components/Card/Global-Card/Global-Card";
 
 import fondo from "../../../../assets/img/fondo/servicios/fondo_servicio.png";
-import cosmetologiaImg from "../../../../assets/img/servicios/cosmetologia.jpg";
+import capilaresImg from "../../../../assets/img/servicios/capilares.jpg";
 
 const servicios = [
     {
-        nombre: "Limpieza Facial Profunda",
+        nombre: "Botox Capilar",
         descripcion:
-            "Renueva y purifica tu piel con una limpieza profesional personalizada.",
-        imagen: cosmetologiaImg,
+            "Tratamiento intensivo que reconstruye, hidrata y brinda brillo profundo.",
+        imagen: capilaresImg,
         link: "/agendar-hora",
     },
     {
-        nombre: "Hidratación Facial Intensiva",
+        nombre: "Keratina Profesional",
         descripcion:
-            "Recupera la suavidad y luminosidad de tu piel con técnicas avanzadas.",
-        imagen: cosmetologiaImg,
+            "Alisado de larga duración para un cabello suave, brillante y sin frizz.",
+        imagen: capilaresImg,
         link: "/agendar-hora",
     },
     {
-        nombre: "Tratamiento Anti-Edad",
+        nombre: "Shock de Hidratación",
         descripcion:
-            "Técnicas enfocadas en atenuar líneas de expresión y mejorar la firmeza.",
-        imagen: cosmetologiaImg,
+            "Reparación instantánea para cabellos secos, dañados o quebradizos.",
+        imagen: capilaresImg,
         link: "/agendar-hora",
     },
 ];
 
-export default function Cosmetologia() {
+export default function Capilares() {
     return (
         <>
             <div className="container-fluid py-5">
                 <HeroBanner
-                    title="Cosmetología"
-                    subtitle="Tratamientos faciales profesionales para cuidar y rejuvenecer tu piel"
+                    title="Tratamientos Capilares"
+                    subtitle="Repara, hidrata y transforma tu cabello con técnicas profesionales"
                     buttonText="Agendar hora"
                     buttonLink="/agendar-hora"
                     backgroundImage={fondo}
@@ -50,9 +50,9 @@ export default function Cosmetologia() {
 
             <Container className="my-5">
                 <Row className="text-center mb-4">
-                    <h2 className="fw-bold text-secondary">Tratamientos Disponibles</h2>
+                    <h2 className="fw-bold text-secondary">Servicios Disponibles</h2>
                     <p className="text-muted">
-                        Elige uno de nuestros servicios especializados en cuidado facial.
+                        Elige uno de nuestros tratamientos especializados para tu cabello.
                     </p>
                 </Row>
 
