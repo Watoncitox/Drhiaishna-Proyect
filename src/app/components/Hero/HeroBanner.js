@@ -11,6 +11,7 @@ export default function HeroBanner({
   backgroundVideo,
   gradient = "rgba(0, 0, 0, 0.5)",
   textGradient = "linear-gradient(90deg, #e05eff, #c467f8)",
+  showButton = true,
 }) {
   // If a video is provided, we don't set a CSS background image
   const heroStyle = backgroundVideo
@@ -45,25 +46,27 @@ export default function HeroBanner({
       </h1>
       {subtitle && <p className="lead mb-4">{subtitle}</p>}
 
-      <Button
-        variant="custom"
-        size="lg"
-        className="rounded-pill px-4 py-2 fw-semibold"
-        onClick={onButtonClick}
-      >
-        {/* Inline lightweight calendar SVG to avoid extra dependency */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
-          fill="currentColor"
-          className="bi bi-calendar3 me-2"
-          viewBox="0 0 16 16"
+      {showButton && (
+        <Button
+          variant="custom"
+          size="lg"
+          className="rounded-pill px-4 py-2 fw-semibold"
+          onClick={onButtonClick}
         >
-          <path d="M14 3h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h1V1.5a.5.5 0 0 1 1 0V3h8V1.5a.5.5 0 0 1 1 0V3zM1 5v8h14V5H1z"/>
-        </svg>
-        {buttonText}
-      </Button>
+          {/* Inline lightweight calendar SVG to avoid extra dependency */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            fill="currentColor"
+            className="bi bi-calendar3 me-2"
+            viewBox="0 0 16 16"
+          >
+            <path d="M14 3h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h1V1.5a.5.5 0 0 1 1 0V3h8V1.5a.5.5 0 0 1 1 0V3zM1 5v8h14V5H1z"/>
+          </svg>
+          {buttonText}
+        </Button>
+      )}
     </div>
   );
 }

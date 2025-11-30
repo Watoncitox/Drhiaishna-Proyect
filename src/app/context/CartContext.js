@@ -1,42 +1,35 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 
 export const CartContext = createContext();
 
+export const useCart = () => useContext(CartContext);
+
 export const CartProvider = ({ children }) => {
-  const [carrito, setCarrito] = useState([]);
+    const [cart, setCart] = useState([]);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Cargar carrito desde localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem("carrito");
-    if (saved) setCarrito(JSON.parse(saved));
-  }, []);
+    const addToCart = (item) => {
+        setCart((prev) => [...prev, item]);
+    };
 
-  // Guardar carrito
-  useEffect(() => {
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-  }, [carrito]);
+    const removeFromCart = (id) => {
+        setCart((prev) => prev.filter((item) => item.id !== id));
+    };
 
-  const addToCart = (producto) => {
-    setCarrito((prev) => {
-      const exists = prev.find((p) => p.id === producto.id);
-      if (exists) {
-        return prev.map((p) =>
-          p.id === producto.id ? { ...p, qty: p.qty + 1 } : p
-        );
-      }
-      return [...prev, { ...producto, qty: 1 }];
-    });
-  };
+    const clearCart = () => setCart([]);
 
-  const removeFromCart = (id) => {
-    setCarrito((prev) => prev.filter((p) => p.id !== id));
-  };
+    const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
-  const clearCart = () => setCarrito([]);
-
-  return (
-    <CartContext.Provider value={{ carrito, addToCart, removeFromCart, clearCart }}>
-      {children}
-    </CartContext.Provider>
-  );
+    return (
+        <CartContext.Provider value={{
+            cart,
+            addToCart,
+            removeFromCart,
+            clearCart,
+            sidebarOpen,
+            toggleSidebar
+        }}>
+            {children}
+        </CartContext.Provider>
+    );
 };

@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 // NavbarAdmin is provided globally by App.js when the user is admin.
 import "./agenda.css";
 
-import { Card, Row, Col, Button, ListGroup, Badge } from "react-bootstrap";
+import HeroBanner from "../../../components/Hero/HeroBanner";
+import { Card, Row, Col, Button, ListGroup, Badge, Container } from "react-bootstrap";
 import { listCitas } from "../../../services/appointmentsService";
 
 function daysInMonth(y, m) {
@@ -36,7 +37,11 @@ export default function AgendaAdmin() {
 
   return (
     <>
-      <div className="container mt-5 pt-5 agenda-page">
+      <div className="page-hero admin-hero container-fluid py-5">
+        <HeroBanner title="Agenda" subtitle="Visualiza y gestiona las citas programadas" gradient="rgba(0,0,0,0.45)" showButton={false} />
+      </div>
+
+      <Container className="mt-4 pt-4 agenda-page">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h2>Agenda</h2>
           <div>
@@ -99,7 +104,7 @@ export default function AgendaAdmin() {
             </Col>
           ))}
         </Row>
-
+        
         <Row className="mt-4">
           <Col md={6}>
             <Card>
@@ -122,7 +127,7 @@ export default function AgendaAdmin() {
             </Card>
           </Col>
         </Row>
-      </div>
+      </Container>
     </>
   );
 }

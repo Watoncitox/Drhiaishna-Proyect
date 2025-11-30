@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import CardUsuario from '../../../components/Card/Card-Usuario/Card-Usuario';
 import './usuario-admin.css';
 import { useAuth } from '../../../context/AuthContext';
+import HeroBanner from '../../../components/Hero/HeroBanner';
 
 export default function UsuarioAdmin() {
   const { usuario, updateUsuario, logout, notify } = useAuth();
@@ -20,8 +21,17 @@ export default function UsuarioAdmin() {
   };
 
   return (
-    <Container className="mt-5 pt-5 usuario-admin-page">
-      <h2 className="mb-4">Mi cuenta (Administrador)</h2>
+    <>
+      <div className="page-hero admin-hero container-fluid py-5">
+        <HeroBanner
+          title="Mi cuenta"
+          subtitle="Administración de tu perfil y opciones de administrador"
+          gradient="rgba(0,0,0,0.45)"
+          showButton={false}
+        />
+      </div>
+      <Container className="mt-4 pt-4 usuario-admin-page">
+        <h2 className="mb-4">Mi cuenta (Administrador)</h2>
       {usuario ? (
         <>
           <CardUsuario usuario={usuario} onSave={handleSave} />
@@ -38,5 +48,6 @@ export default function UsuarioAdmin() {
         <p className="text-muted">No se encontró información del usuario. Por favor inicia sesión.</p>
       )}
     </Container>
+    </>
   );
 }

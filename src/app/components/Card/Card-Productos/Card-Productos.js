@@ -1,8 +1,8 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./MarcaCard.css";
 
-const MarcaCard = ({ titulo, imagen, descripcion, beneficios, parrafos, reverse }) => {
+const MarcaCard = ({ titulo, imagen, descripcion, beneficios, parrafos, reverse, link }) => {
   return (
     <section className="about-section">
       <div
@@ -30,6 +30,12 @@ const MarcaCard = ({ titulo, imagen, descripcion, beneficios, parrafos, reverse 
                 ))}
               </ul>
             </>
+          )}
+          {/* Botón para ir a la vista de la marca si se provee `link` */}
+          {typeof link !== 'undefined' && (
+            <div className="mt-3">
+              <Link to={link} className="btn btn-outline-primary">Ver productos de {titulo}</Link>
+            </div>
           )}
         </div>
       </div>

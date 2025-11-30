@@ -3,6 +3,8 @@ import NavbarCliente from "../../../components/Navbar/Navbar-cliente";
 import HeroBanner from "../../../components/Hero/HeroBanner";
 import MarcaCard from "../../../components/Card/Card-Productos/Card-Productos";
 import "./productos.css";
+import { useEffect, useState } from "react";
+import { getProductos } from "../../../services/productsService";
 
 // Import de imágenes
 import productosFondo from "../../../assets/img/fondo/Productos/productosFondo.png";
@@ -10,6 +12,17 @@ import kerastaseImg from "../../../assets/img/fondo/Productos/kerastase.jpg";
 import lorealImg from "../../../assets/img/fondo/Productos/loreal.jpg";
 
 const ProductosPage = () => {
+  const [, setProductos] = useState([]);
+
+  useEffect(() => {
+    setProductos(getProductos());
+    const handler = () => setProductos(getProductos());
+    window.addEventListener('productos:changed', handler);
+    // also listen to storage event for multi-tab
+    const storageHandler = (e) => { if (e.key === 'productos_v5') setProductos(getProductos()); };
+    window.addEventListener('storage', storageHandler);
+    return () => { window.removeEventListener('productos:changed', handler); window.removeEventListener('storage', storageHandler); };
+  }, []);
   const marcas = [
     {
       titulo: "Kerastase",
@@ -26,6 +39,7 @@ const ProductosPage = () => {
         "Resultados visibles: más fuerza, brillo y suavidad.",
         "Experiencia sensorial premium en cada uso.",
       ],
+        link: "/productos/kerastase",
     },
     {
       titulo: "L'Oréal Professionnel",
@@ -42,6 +56,7 @@ const ProductosPage = () => {
         "Innovaciones tecnológicas para reparación y nutrición profunda.",
         "Respaldo de expertos en peluquería a nivel mundial.",
       ],
+        link: "/productos/loreal",
       reverse: true,
     },
   ];

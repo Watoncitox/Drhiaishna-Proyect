@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 // NavbarAdmin is provided globally by App.js when the user is admin.
 import "./home-admin.css";
+import HeroBanner from "../../../components/Hero/HeroBanner";
 
 // Imágenes desde assets
 import fondoServicio from "../../../assets/img/fondo/servicios/fondo_servicio.png";
@@ -38,14 +39,15 @@ const HomeAdmin = () => {
   return (
     <>
       <main className="home-admin-background min-vh-100 d-flex flex-column align-items-center justify-content-start">
-        <section className="text-center mb-5 mt-5 pt-4">
-          <h1 className="fw-bold display-5 text-danger mb-2 animate-fade">
-            Panel de Administración
-          </h1>
-          <p className="fs-5 text-secondary animate-fade-delayed">
-            Gestiona tu clínica estética desde un solo lugar
-          </p>
-        </section>
+        <div className="page-hero admin-hero container-fluid py-5">
+          <HeroBanner
+            title="Panel de Administración"
+            subtitle="Gestiona tu clínica estética desde un solo lugar"
+            backgroundImage={fondoServicio}
+            gradient="rgba(0,0,0,0.45)"
+            showButton={false}
+          />
+        </div>
 
         <Container>
           <Row className="g-4 justify-content-center">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from "react-router-dom";
 import "./inicio-sesion.css";
+import HeroBanner from "../../components/Hero/HeroBanner";
 
 // ===== USUARIOS BASE =====
 const usuariosBase = [
@@ -79,12 +80,13 @@ const InicioSesion = () => {
   return (
     <div className="background-gradient">
 
-      <section className="page-header">
-        <h1 className="admin-title">¡Bienvenido!</h1>
-        <p className="admin-subtitle">
-          Inicia sesión o crea tu cuenta para recibir descuentos exclusivos
-        </p>
-      </section>
+      <div className="container-fluid py-5">
+        <HeroBanner
+          title="¡Bienvenido!"
+          subtitle="Inicia sesión o crea tu cuenta para recibir descuentos exclusivos"
+          gradient="rgba(0, 0, 0, 0.55)"
+        />
+      </div>
 
       <section className="admin-options">
         {mostrarLogin ? (

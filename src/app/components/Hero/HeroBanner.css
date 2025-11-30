@@ -49,3 +49,11 @@
   transform: translateY(-3px);
   box-shadow: 0 4px 15px rgba(208, 108, 251, 0.4);
 }
+
+/* Ensure any wrapper using .page-hero does not add extra top whitespace
+   when rendering the shared HeroBanner. Use !important to override
+   page-specific overrides that previously added header offsets. */
+.page-hero {
+  margin-top: 0 !important;
+  padding: 0 12px;
+}

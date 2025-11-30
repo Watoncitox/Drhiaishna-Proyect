@@ -26,6 +26,6 @@ function seed() {
 
 export function getProductos() { seed(); return JSON.parse(localStorage.getItem(KEY)) || []; }
 export function getProducto(id) { return getProductos().find(p => p.id === id) || null; }
-export function createProducto(prod) { const l = getProductos(); l.push(prod); localStorage.setItem(KEY, JSON.stringify(l)); return prod; }
-export function updateProducto(id, patch) { const l = getProductos().map(p => p.id===id?{...p,...patch}:p); localStorage.setItem(KEY, JSON.stringify(l)); return l.find(p=>p.id===id); }
-export function deleteProducto(id) { const l = getProductos().filter(p=>p.id!==id); localStorage.setItem(KEY, JSON.stringify(l)); }
+export function createProducto(prod) { const l = getProductos(); l.push(prod); localStorage.setItem(KEY, JSON.stringify(l)); try{ window.dispatchEvent(new Event('productos:changed')); }catch{} return prod; }
+export function updateProducto(id, patch) { const l = getProductos().map(p => p.id===id?{...p,...patch}:p); localStorage.setItem(KEY, JSON.stringify(l)); try{ window.dispatchEvent(new Event('productos:changed')); }catch{} return l.find(p=>p.id===id); }
+export function deleteProducto(id) { const l = getProductos().filter(p=>p.id!==id); localStorage.setItem(KEY, JSON.stringify(l)); try{ window.dispatchEvent(new Event('productos:changed')); }catch{} }

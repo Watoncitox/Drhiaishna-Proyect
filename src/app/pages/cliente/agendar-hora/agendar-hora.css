@@ -6,7 +6,7 @@
 
 /* Ajuste para evitar que el navbar fijo se superponga al Hero en esta página */
 .page-hero {
-    margin-top: calc(var(--header-offset, 32px) + 10px);
+    margin-top: 0;
     padding: 0 12px;
 }
 
@@ -39,6 +39,21 @@
     font-weight: 600;
     color: #6a6a6a;
     margin-bottom: 12px;
+}
+
+/* Scrollable services list */
+.servicios-menu .list-scroll {
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.servicios-menu .list-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+.servicios-menu .list-scroll::-webkit-scrollbar-thumb {
+    background: #e0c8ff;
+    border-radius: 8px;
 }
 
 /* ---------- HORARIOS ---------- */

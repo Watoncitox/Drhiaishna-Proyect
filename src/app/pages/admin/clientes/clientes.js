@@ -1,6 +1,7 @@
 import "./clientes.css";
 import React, { useEffect, useMemo, useState } from "react";
-import { Table, Button, ButtonGroup, Badge } from "react-bootstrap";
+import HeroBanner from "../../../components/Hero/HeroBanner";
+import { Table, Button, ButtonGroup, Badge, Container } from "react-bootstrap";
 
 import { listCitas, actualizarEstado } from "../../../services/appointmentsService";
 
@@ -38,7 +39,11 @@ export default function ClientesAdmin() {
 
   return (
     <>
-      <div className="container mt-5 pt-5 clientes-page">
+      <div className="page-hero admin-hero container-fluid py-5">
+        <HeroBanner title="Clientes" subtitle="Lista de clientes y próximas citas" gradient="rgba(0,0,0,0.45)" showButton={false} />
+      </div>
+
+      <Container className="mt-4 pt-4 clientes-page">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h2>Clientes agendados</h2>
           <ButtonGroup>
@@ -119,7 +124,7 @@ export default function ClientesAdmin() {
             )}
           </tbody>
         </Table>
-      </div>
+      </Container>
     </>
   );
 }

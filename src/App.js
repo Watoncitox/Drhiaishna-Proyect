@@ -16,6 +16,9 @@ import ServiciosCRUD from "./app/pages/admin/servicios-crud/servicios-crud";
 import UsuarioAdmin from "./app/pages/admin/usuario-admin/usuario-admin";
 import ProductosCliente from "./app/pages/cliente/productos/productos";
 import ProductoDetalle from "./app/pages/cliente/producto-detalle/producto-detalle";
+import Kerastase from "./app/pages/cliente/productos/kerastase/kerastase";
+import Loreal from "./app/pages/cliente/productos/loreal/loreal";
+import Checkout from "./app/pages/cliente/checkout/checkout";
 import ServiciosPage from "./app/pages/cliente/servicios/servicios"; 
 import Cosmetologia from "./app/pages/cliente/servicios/cosmetologia/cosmetologia";
 import CorporalesSpa from "./app/pages/cliente/servicios/spa-corporal/corporales-spa";
@@ -27,6 +30,9 @@ import PerfilPage from "./app/pages/cliente/perfil/PerfilPage";
 import AgendarHora from "./app/pages/cliente/agendar-hora/agendar-hora";
 import { AuthProvider, useAuth } from "./app/context/AuthContext";
 import { ToastContainer, Toast } from 'react-bootstrap';
+import { CartProvider } from "./app/context/CartContext";
+import CartSidebar from "./app/components/Compras/CartSidebar";
+import CartFloating from "./app/components/Compras/CartFloating";
 
 function AppRouter() {
   const { usuario, toast, hideToast } = useAuth();
@@ -37,15 +43,13 @@ function AppRouter() {
     <BrowserRouter>
       {/* Navbar decidido por el contexto */}
       {isAdmin ? <NavbarAdmin /> : <NavbarCliente />}
-
-      <Routes>
-        <Route path="/" element={<HomeCliente />} />
-        <Route path="/home" element={<HomeCliente />} />
-        <Route path="/contacto" element={<Contacto />} />
-        <Route path="/nosotros" element={<Nosotros />} />
-        <Route path="/inicio-sesion" element={<InicioSesion />} />
-        <Route path="/perfil" element={<PerfilPage />} />
-        <Route path="/servicios" element={<ServiciosPage />} />
+      <CartProvider>
+        <Routes>
+          <Route path="/" element={<HomeCliente />} />
+          <Route path="/home" element={<HomeCliente />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/servicios" element={<ServiciosPage />} />
           <Route path="/servicios/cosmetologia" element={<Cosmetologia />} />
           <Route path="/servicios/corporales" element={<CorporalesSpa />} />
           <Route path="/servicios/manicure" element={<ManicurePedicure />} />
@@ -53,15 +57,27 @@ function AppRouter() {
           <Route path="/servicios/maquillaje" element={<Maquillaje />} />
           <Route path="/servicios/capilares" element={<Capilares />} />
           <Route path="/agendar-hora" element={<AgendarHora />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/productos" element={<ProductosCliente />} />
-        <Route path="/producto/:id" element={<ProductoDetalle />} />
-        <Route path="/admin/home-admin" element={<RequireAdmin><HomeAdmin /></RequireAdmin>} />
-        <Route path="/admin/clientes" element={<RequireAdmin><ClientesAdmin /></RequireAdmin>} />
-        <Route path="/admin/agenda" element={<RequireAdmin><AgendaAdmin /></RequireAdmin>} />
-        <Route path="/admin/productos" element={<RequireAdmin><ProductosCRUD /></RequireAdmin>} />
-        <Route path="/admin/usuario" element={<RequireAdmin><UsuarioAdmin /></RequireAdmin>} />
-        <Route path="/admin/servicios-crud" element={<RequireAdmin><ServiciosCRUD /></RequireAdmin>} />
-      </Routes>
+          <Route path="/producto/:id" element={<ProductoDetalle />} />
+          <Route path="/productos/kerastase" element={<Kerastase />} />
+          <Route path="/productos/loreal" element={<Loreal />} />
+      
+          <Route path="/inicio-sesion" element={<InicioSesion />} />
+          <Route path="/perfil" element={<PerfilPage />} />
+
+          <Route path="/admin/home-admin" element={<RequireAdmin><HomeAdmin /></RequireAdmin>} />
+          <Route path="/admin/clientes" element={<RequireAdmin><ClientesAdmin /></RequireAdmin>} />
+          <Route path="/admin/agenda" element={<RequireAdmin><AgendaAdmin /></RequireAdmin>} />
+          <Route path="/admin/productos" element={<RequireAdmin><ProductosCRUD /></RequireAdmin>} />
+          <Route path="/admin/usuario" element={<RequireAdmin><UsuarioAdmin /></RequireAdmin>} />
+          <Route path="/admin/servicios-crud" element={<RequireAdmin><ServiciosCRUD /></RequireAdmin>} />
+        </Routes>
+
+        {/* Carrito global: sidebar + botón flotante */}
+        <CartSidebar />
+        <CartFloating />
+      </CartProvider>
       {/* Global toast container driven by AuthContext */}
       <ToastContainer position="bottom-end" className="p-3">
         {toast && (

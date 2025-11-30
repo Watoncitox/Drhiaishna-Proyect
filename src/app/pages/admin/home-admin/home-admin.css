@@ -1,7 +1,6 @@
 /* ===== Fondo Principal ===== */
 .home-admin-background {
   background: linear-gradient(135deg, #f7e6eb 0%, #f8c6c8 50%, #eab1c6 100%);
-  padding-top: 140px; /* espacio para el navbar flotante */
   overflow-x: hidden;
 }
 

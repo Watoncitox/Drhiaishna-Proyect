@@ -17,6 +17,8 @@ import capilaresImg from "../../../assets/img/servicios/capilares.jpg";
 // Imagen fondo del Hero
 import fondoServicios from "../../../assets/img/fondo/servicios/fondo_servicio.png";
 
+// Carrito: removed accidental top-level hook usage (useCart) and erroneous addToCart call
+
 const categorias = [
     {
         titulo: "Cosmetología",

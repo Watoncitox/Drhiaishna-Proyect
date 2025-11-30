@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavbarBase from "./NavbarBase";
 
 export default function NavbarAdmin() {
   const links = [
-    { to: "/home-admin", label: "Inicio" },
-    { to: "/clientes", label: "Clientes" },
-    { to: "/productos-crud", label: "Productos" },
-    { to: "/servicios-crud", label: "Servicios" },
-    { to: "/agenda", label: "Agenda" },
-    { to: "/usuario", label: "Usuarios" },
+    { to: "/admin/home-admin", label: "Inicio" },
+    { to: "/admin/clientes", label: "Clientes" },
+    { to: "/admin/productos", label: "Productos" },
+    { to: "/admin/servicios-crud", label: "Servicios" },
+    { to: "/admin/agenda", label: "Agenda" },
+    { to: "/admin/usuario", label: "Usuarios" },
   ];
+
+  useEffect(() => {
+    // Ensure client theme is removed when admin navbar mounts
+    document.body.classList.remove("client-theme");
+  }, []);
 
   return <NavbarBase links={links} brandColor="dark" />;
 }
