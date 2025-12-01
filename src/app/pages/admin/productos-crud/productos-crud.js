@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./productos-crud.css";
 import HeroBanner from "../../../components/Hero/HeroBanner";
 import { Container, Table, Button, Form, Modal, Alert } from "react-bootstrap";
-import { getProductosNormalized, createProducto, updateProducto, deleteProducto } from "../../../services/productsService";
+import { getProductosNormalized, createProducto, updateProducto, deleteProducto } from "../../../../services/productsService";
 
 export default function ProductosCRUD() {
   const [list, setList] = useState([]);

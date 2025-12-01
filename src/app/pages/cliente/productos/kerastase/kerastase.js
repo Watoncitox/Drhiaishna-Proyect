@@ -6,7 +6,7 @@ import HeroBanner from "../../../../components/Hero/HeroBanner";
 import "./kerastase.css";
 import { useCart } from "../../../../hooks/useCart";
 import kerastaseImg from "../../../../assets/img/fondo/Productos/kerastase.jpg";
-import { getProductosNormalized as getProductos } from '../../../../services/productsService';
+import { getProductosNormalized as getProductos } from '../../../../../services/productsService';
 
 const Kerastase = () => {
     const { id } = useParams();

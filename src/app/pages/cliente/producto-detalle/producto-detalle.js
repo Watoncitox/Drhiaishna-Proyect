@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import NavbarCliente from '../../../components/Navbar/Navbar-cliente';
 import HeroBanner from '../../../components/Hero/HeroBanner';
-import { getProducto } from '../../../services/productsService';
+import { getProducto } from '../../../../services/productsService';
 import { useCart } from '../../../hooks/useCart';
 
 export default function ProductoDetalle() {

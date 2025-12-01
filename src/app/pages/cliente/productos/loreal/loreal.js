@@ -6,7 +6,7 @@ import HeroBanner from "../../../../components/Hero/HeroBanner";
 import "../kerastase/kerastase.css";
 import { useCart } from "../../../../hooks/useCart";
 import lorealImg from "../../../../assets/img/fondo/Productos/loreal.jpg";
-import { getProductosNormalized as getProductos } from '../../../../services/productsService';
+import { getProductosNormalized as getProductos } from '../../../../../services/productsService';
 
 const Loreal = () => {
   const { id } = useParams();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Button, Table, Alert, Form, Modal } from 'react-bootstrap';
 import HeroBanner from '../../../components/Hero/HeroBanner';
-import { servicesService } from '../../../services/servicesService';
+import { servicesService } from '../../../../services/servicesService';
 // NavbarAdmin is provided globally by App.js when the user is admin.
 import './servicios-crud.css';
 // Nota: Asume que las clases de Bootstrap ya están disponibles en tu proyecto.

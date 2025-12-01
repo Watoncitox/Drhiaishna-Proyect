@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import HeroBanner from "../../../components/Hero/HeroBanner";
 import { Table, Button, Container, Modal, ListGroup, Pagination, Form } from "react-bootstrap";
 
-import { listCitas } from "../../../services/appointmentsService";
+import { listCitas } from "../../../../services/appointmentsService";
 
 // (no longer used) previously helper to check next N days
 

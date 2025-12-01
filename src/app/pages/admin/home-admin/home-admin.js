@@ -5,8 +5,8 @@ import { NavLink } from "react-router-dom";
 import "./home-admin.css";
 import HeroBanner from "../../../components/Hero/HeroBanner";
 
-import { listCitas } from "../../../services/appointmentsService";
-import servicesService from "../../../services/servicesService";
+import { listCitas } from "../../../../services/appointmentsService";
+import servicesService from "../../../../services/servicesService";
 
 // Imágenes desde assets
 import fondoServicio from "../../../assets/img/fondo/servicios/fondo_servicio.png";

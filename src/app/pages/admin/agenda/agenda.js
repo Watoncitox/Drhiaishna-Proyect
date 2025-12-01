@@ -4,8 +4,8 @@ import "./agenda.css";
 
 import HeroBanner from "../../../components/Hero/HeroBanner";
 import { Card, Button, ListGroup, Container, Modal, Form } from "react-bootstrap";
-import { listCitas, agregarCita } from "../../../services/appointmentsService";
-import { servicesService } from "../../../services/servicesService";
+import { listCitas, agregarCita } from "../../../../services/appointmentsService";
+import { servicesService } from "../../../../services/servicesService";
 
 function daysInMonth(y, m) {
   return new Date(y, m + 1, 0).getDate();

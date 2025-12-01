@@ -11,7 +11,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { useCart } from "../../../context/CartContext";
-import { servicesService } from "../../../services/servicesService";
+import { servicesService } from "../../../../services/servicesService";
 import "react-calendar/dist/Calendar.css";
 import "./agendar-hora.css";
 

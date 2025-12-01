@@ -4,7 +4,7 @@ import HeroBanner from "../../../components/Hero/HeroBanner";
 import MarcaCard from "../../../components/Card/Card-Productos/Card-Productos";
 import "./productos.css";
 import { useEffect, useState } from "react";
-import { getProductosNormalized as getProductos } from "../../../services/productsService";
+import { getProductosNormalized as getProductos } from "../../../../services/productsService";
 
 // Import de imágenes
 import productosFondo from "../../../assets/img/fondo/Productos/productosFondo.png";
