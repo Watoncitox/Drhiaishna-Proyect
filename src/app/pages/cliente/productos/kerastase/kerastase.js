@@ -5,32 +5,30 @@ import NavbarCliente from "../../../../components/Navbar/Navbar-cliente";
 import HeroBanner from "../../../../components/Hero/HeroBanner";
 import "./kerastase.css";
 import { useCart } from "../../../../hooks/useCart";
-
-// Puedes reemplazar esto con un JSON real más adelante
 import kerastaseImg from "../../../../assets/img/fondo/Productos/kerastase.jpg";
-
-const mockProductos = {
-    1: {
-        id: 1,
-        nombre: "Shampoo Kerastase Nutritive",
-        img: kerastaseImg,
-        precio: 24990,
-        descripcion:
-            "Shampoo nutritivo premium diseñado para cabellos secos, opacos y sin vida.",
-        beneficios: [
-            "Nutre profundamente la fibra capilar",
-            "Hidrata sin dejar pesado",
-            "Restaura suavidad y brillo",
-            "Fórmula premium rica en lípidos"
-        ],
-    }
-};
+import { getProductosNormalized as getProductos } from '../../../../services/productsService';
 
 const Kerastase = () => {
     const { id } = useParams();
-    // If route has no id (we navigate from /productos/kerastase), fall back to the first example
-    const producto = (id && mockProductos[id]) ? mockProductos[id] : mockProductos[1];
+    const all = getProductos();
+    // find by id if provided
+    let producto = null;
+    if (id) producto = all.find(p => String(p.id) === String(id));
+    // otherwise pick first in category 'kerastase'
+    if (!producto) producto = all.find(p => p.categoria === 'kerastase') || all[0] || null;
     const { addToCart } = useCart();
+
+    if (!producto) {
+        return (
+            <div className="background-detalle">
+                <NavbarCliente />
+                <Container className="py-5"><p>No hay productos disponibles.</p></Container>
+            </div>
+        );
+    }
+
+    const imgSrc = producto.imagen || kerastaseImg;
+    const beneficios = producto.beneficios || [];
 
     return (
         <div className="background-detalle">
@@ -49,7 +47,7 @@ const Kerastase = () => {
                 <Row className="align-items-center">
                     <Col md={6}>
                         <div className="img-frame">
-                            <img src={producto.img} alt={producto.nombre} className="detalle-img" />
+                            <img src={imgSrc} alt={producto.nombre} className="detalle-img" />
                         </div>
                     </Col>
 
@@ -57,19 +55,23 @@ const Kerastase = () => {
                         <h1 className="detalle-title">{producto.nombre}</h1>
                         <p className="detalle-descripcion">{producto.descripcion}</p>
 
-                        <h4 className="detalle-sub">Beneficios</h4>
-                        <ul className="detalle-list">
-                            {producto.beneficios.map((b, i) => (
-                                <li key={i}>{b}</li>
-                            ))}
-                        </ul>
+                        {beneficios.length > 0 && (
+                            <>
+                                <h4 className="detalle-sub">Beneficios</h4>
+                                <ul className="detalle-list">
+                                    {beneficios.map((b, i) => (
+                                        <li key={i}>{b}</li>
+                                    ))}
+                                </ul>
+                            </>
+                        )}
 
                         <h3 className="precio">${producto.precio}</h3>
 
                         <Button
                             variant="danger"
                             className="btn-add"
-                            onClick={() => addToCart(producto)}
+                            onClick={() => addToCart({ id: producto.id, nombre: producto.nombre, precio: producto.precio, imagen: producto.imagen })}
                         >
                             Agregar al carrito
                         </Button>

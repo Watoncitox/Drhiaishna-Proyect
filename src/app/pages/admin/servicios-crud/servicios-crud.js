@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Table, Alert, Form } from 'react-bootstrap';
+import { Container, Button, Table, Alert, Form, Modal } from 'react-bootstrap';
 import HeroBanner from '../../../components/Hero/HeroBanner';
 import { servicesService } from '../../../services/servicesService';
 // NavbarAdmin is provided globally by App.js when the user is admin.
@@ -17,32 +17,19 @@ const ServiciosCRUD = () => {
     }, []);
     // Estado para mostrar mensajes al administrador
     const [message, setMessage] = useState(null);
+    // Modal para crear/editar servicio
+    const [showModal, setShowModal] = useState(false);
+    const [creatingService, setCreatingService] = useState({
+        name: '',
+        price: 0,
+        duration: 60,
+        active: true,
+        category: 'cosmetologia'
+    });
+    const [editingId, setEditingId] = useState(null); // null = creating, otherwise editing existing
 
-    /**
-     * Maneja los cambios en los campos de Precio y Stock de la tabla.
-     * @param {number} id - ID del servicio que se está modificando.
-     * @param {string} field - Campo que se está actualizando ('price' o 'available').
-     * @param {string} value - Nuevo valor.
-     */
-    const handleChange = (id, field, value) => {
-        const parsedValue = field === 'price' ? parseFloat(value) : parseInt(value, 10);
-        
-        // Evita NaN o valores negativos para stock
-        if (isNaN(parsedValue) || parsedValue < 0) {
-            // Permite un campo vacío temporalmente para la edición de precio
-            if (field === 'price' && value === '') return; 
-            if (field === 'available' && value === '') return; 
-            
-            setMessage({ type: 'danger', text: 'El valor debe ser numérico y no negativo.' });
-            return;
-        }
-
-        const updatedServices = services.map(service => 
-            service.id === id ? { ...service, [field]: parsedValue } : service
-        );
-        setServices(updatedServices);
-        setMessage(null); // Limpia el mensaje si el cambio es válido
-    };
+    // Price and active state are editable only via the modal form now.
+    // Inline table editing handlers removed to prevent direct edits from the list.
 
     /**
      * Simula el guardado de los cambios a la base de datos.
@@ -61,16 +48,81 @@ const ServiciosCRUD = () => {
     // NOTA: Estas funciones son placeholders. Implementa la lógica real de modal/formulario aquí.
 
     const handleNew = () => {
-        const id = `new-${Date.now()}`;
-        const nuevo = { id, name: 'Nuevo servicio', price: 0, duration: '60', available: 0, active: false, category: 'cosmetologia' };
+        // open modal to create a full service
+        setCreatingService({ name: '', price: 0, duration: 60, active: true, category: 'cosmetologia' });
+        setEditingId(null);
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
+    const handleCreateSubmit = () => {
+        // basic validation
+        if (!creatingService.name || creatingService.name.trim() === '') {
+            setMessage({ type: 'danger', text: 'El nombre del servicio es obligatorio.' });
+            return;
+        }
+        if (isNaN(Number(creatingService.price)) || Number(creatingService.price) < 0) {
+            setMessage({ type: 'danger', text: 'Precio inválido.' });
+            return;
+        }
+        if (!creatingService.category) {
+            setMessage({ type: 'danger', text: 'Selecciona una categoría.' });
+            return;
+        }
+
+        if (editingId) {
+            // update existing
+            const patch = {
+                category: creatingService.category,
+                name: creatingService.name,
+                price: Number(creatingService.price),
+                duration: Number(creatingService.duration),
+                active: !!creatingService.active
+            };
+            servicesService.updateService(editingId, patch);
+            setShowModal(false);
+            setMessage({ type: 'success', text: 'Servicio actualizado correctamente.' });
+            setTimeout(() => setMessage(null), 3000);
+            setEditingId(null);
+            return;
+        }
+
+        const id = `${creatingService.category}-${Date.now()}`;
+        const nuevo = {
+            id,
+            category: creatingService.category,
+            name: creatingService.name,
+            price: Number(creatingService.price),
+            duration: Number(creatingService.duration),
+            active: !!creatingService.active
+        };
+
         servicesService.createService(nuevo);
-        setMessage({ type: 'success', text: 'Servicio creado (temporal). Edita sus campos y guarda.' });
+        setShowModal(false);
+        setMessage({ type: 'success', text: 'Servicio creado correctamente.' });
         setTimeout(() => setMessage(null), 3000);
     };
 
-    const handleDelete = (id) => {
-        if (window.confirm(`¿Estás seguro de ELIMINAR el servicio con ID ${id}?`)) {
+    const handleEdit = (service) => {
+        setCreatingService({
+            name: service.name,
+            price: service.price,
+            duration: service.duration,
+            active: !!service.active,
+            category: service.category
+        });
+        setEditingId(service.id);
+        setShowModal(true);
+    };
+
+    const handleDeleteFromModal = (id) => {
+        if (!id) return;
+        if (window.confirm(`¿Eliminar servicio ${id}? Esta acción es irreversible.`)) {
             servicesService.deleteService(id);
+            setShowModal(false);
             setMessage({ type: 'warning', text: `Servicio ID ${id} eliminado.` });
             setTimeout(() => setMessage(null), 3000);
         }
@@ -80,14 +132,14 @@ const ServiciosCRUD = () => {
     return (
         <>
             <div className="page-hero admin-hero container-fluid py-5">
-                <HeroBanner title="Servicios (Admin)" subtitle="Gestiona los servicios ofrecidos" gradient="rgba(0,0,0,0.45)" showButton={false} />
+                <HeroBanner title="Gestion Servicios" subtitle="Administra el catálogo de servicios" gradient="rgba(0,0,0,0.45)" showButton={false} />
             </div>
 
             <Container className="my-4 pt-4">
                 <header className="d-flex justify-content-between align-items-center mb-4">
                     <h1 className="fw-bold text-dark">Gestión de Servicios 💅</h1>
                     <Button variant="success" onClick={handleNew}>
-                        + Añadir Nuevo
+                        + Añadir Servicio
                     </Button>
                 </header>
 
@@ -101,7 +153,7 @@ const ServiciosCRUD = () => {
                             <th>ID</th>
                             <th>Servicio</th>
                             <th style={{ width: '150px' }}>Precio ($)</th>
-                            <th style={{ width: '100px' }}>Stock</th>
+                            {/* <th style={{ width: '100px' }}>Stock</th> */}
                             <th>Duración</th>
                             <th>Estado</th>
                             <th>Acciones</th>
@@ -113,31 +165,13 @@ const ServiciosCRUD = () => {
                                 <td>{service.id}</td>
                                 <td className="text-start fw-medium">{service.name}</td>
                                 
-                                {/* Campo editable: Precio */}
-                                <td>
-                                    <Form.Control
-                                        type="number"
-                                        step="0.01"
-                                        value={service.price}
-                                        onChange={(e) => handleChange(service.id, 'price', e.target.value)}
-                                        className="text-center"
-                                    />
-                                </td>
+                                {/* Precio (editable sólo en modal) */}
+                                <td className="text-center">{service.price}</td>
                                 
-                                {/* Campo editable: Stock */}
-                                <td>
-                                    <Form.Control
-                                        type="number"
-                                        value={service.available}
-                                        onChange={(e) => handleChange(service.id, 'available', e.target.value)}
-                                        className="text-center"
-                                    />
-                                </td>
                                 
                                 <td>{service.duration}</td>
                                 
                                 <td>
-                                    {/* Indicador de estado */}
                                     <span className={`badge ${service.active ? 'bg-success' : 'bg-danger'}`}>
                                         {service.active ? 'Disponible' : 'Desactivado'}
                                     </span>
@@ -145,10 +179,8 @@ const ServiciosCRUD = () => {
                                 
                                 <td>
                                     <div className="d-flex justify-content-center gap-2">
-                                        {/* NOTA: En React no se usa window.confirm() o alert(), 
-                                                pero lo dejo para la simulación */}
-                                        <Button variant="outline-danger" size="sm" onClick={() => handleDelete(service.id)}>
-                                            Eliminar
+                                        <Button variant="outline-primary" size="sm" onClick={() => handleEdit(service)}>
+                                            Editar
                                         </Button>
                                     </div>
                                 </td>
@@ -168,6 +200,58 @@ const ServiciosCRUD = () => {
                     Guardar Cambios
                 </Button>
             </div>
+
+            {/* Modal para crear nuevo servicio */}
+            <Modal show={showModal} onHide={closeModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>{editingId ? 'Editar servicio' : 'Crear nuevo servicio'}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Nombre del servicio</Form.Label>
+                            <Form.Control type="text" value={creatingService.name} onChange={(e) => setCreatingService(s => ({ ...s, name: e.target.value }))} />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Categoría</Form.Label>
+                            <Form.Select value={creatingService.category} onChange={(e) => setCreatingService(s => ({ ...s, category: e.target.value }))}>
+                                <option value="cosmetologia">Cosmetología</option>
+                                <option value="corporales">Tratamientos Corporales y Spa</option>
+                                <option value="manicure">Manicure y Pedicure</option>
+                                <option value="corte-y-color">Corte, Estilismo y Color</option>
+                                <option value="maquillaje">Maquillaje Profesional</option>
+                                <option value="capilares">Tratamientos Capilares</option>
+                            </Form.Select>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Precio (CLP)</Form.Label>
+                            <Form.Control type="number" value={creatingService.price} onChange={(e) => setCreatingService(s => ({ ...s, price: e.target.value }))} />
+                        </Form.Group>
+
+
+                        
+                        <Form.Group className="mb-3">
+                            <Form.Label>Duración (minutos)</Form.Label>
+                            <Form.Control type="number" value={creatingService.duration} onChange={(e) => setCreatingService(s => ({ ...s, duration: e.target.value }))} />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Check type="checkbox" label="Activo (visible en cliente)" checked={creatingService.active} onChange={(e) => setCreatingService(s => ({ ...s, active: e.target.checked }))} />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={closeModal}>Cancelar</Button>
+                    <div className="ms-auto d-flex gap-2">
+                        <Button variant="primary" onClick={handleCreateSubmit}>{editingId ? 'Guardar cambios' : 'Crear servicio'}</Button>
+                        {editingId && (
+                            <Button variant="danger" onClick={() => handleDeleteFromModal(editingId)}>Eliminar servicio</Button>
+                        )}
+                    </div>
+                </Modal.Footer>
+            </Modal>
 
             {services.length === 0 && (
                 <div className="alert alert-info mt-4 text-center">

@@ -5,28 +5,26 @@ import NavbarCliente from "../../../../components/Navbar/Navbar-cliente";
 import HeroBanner from "../../../../components/Hero/HeroBanner";
 import "../kerastase/kerastase.css";
 import { useCart } from "../../../../hooks/useCart";
-
 import lorealImg from "../../../../assets/img/fondo/Productos/loreal.jpg";
-
-const mockProductos = {
-  1: {
-    id: 1,
-    nombre: "Champú L'Oréal Professionnel",
-    img: lorealImg,
-    precio: 19990,
-    descripcion: "Champú profesional para todo tipo de cabellos, con tecnología reparadora.",
-    beneficios: [
-      "Limpieza suave y equilibrada",
-      "Mejora la textura y el brillo",
-      "Protección del color",
-    ],
-  },
-};
+import { getProductosNormalized as getProductos } from '../../../../services/productsService';
 
 const Loreal = () => {
   const { id } = useParams();
-  const producto = mockProductos[id] || mockProductos[1];
+  const all = getProductos();
+  let producto = null;
+  if (id) producto = all.find(p => String(p.id) === String(id));
+  if (!producto) producto = all.find(p => p.categoria === 'loreal') || all[0] || null;
   const { addToCart } = useCart();
+
+  if (!producto) return (
+    <div className="background-detalle">
+      <NavbarCliente />
+      <Container className="py-5"><p>No hay productos disponibles.</p></Container>
+    </div>
+  );
+
+  const imgSrc = producto.imagen || lorealImg;
+  const beneficios = producto.beneficios || [];
 
   return (
     <div className="background-detalle">
@@ -45,7 +43,7 @@ const Loreal = () => {
         <Row className="align-items-center">
           <Col md={6}>
             <div className="img-frame">
-              <img src={producto.img} alt={producto.nombre} className="detalle-img" />
+              <img src={imgSrc} alt={producto.nombre} className="detalle-img" />
             </div>
           </Col>
 
@@ -53,16 +51,20 @@ const Loreal = () => {
             <h1 className="detalle-title">{producto.nombre}</h1>
             <p className="detalle-descripcion">{producto.descripcion}</p>
 
-            <h4 className="detalle-sub">Beneficios</h4>
-            <ul className="detalle-list">
-              {producto.beneficios.map((b, i) => (
-                <li key={i}>{b}</li>
-              ))}
-            </ul>
+            {beneficios.length > 0 && (
+              <>
+                <h4 className="detalle-sub">Beneficios</h4>
+                <ul className="detalle-list">
+                  {beneficios.map((b, i) => (
+                    <li key={i}>{b}</li>
+                  ))}
+                </ul>
+              </>
+            )}
 
             <h3 className="precio">${producto.precio}</h3>
 
-            <Button variant="danger" className="btn-add" onClick={() => addToCart(producto)}>
+            <Button variant="danger" className="btn-add" onClick={() => addToCart({ id: producto.id, nombre: producto.nombre, precio: producto.precio, imagen: producto.imagen })}>
               Agregar al carrito
             </Button>
 

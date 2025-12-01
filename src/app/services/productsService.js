@@ -8,9 +8,9 @@ function seed() {
   const exists = localStorage.getItem(KEY);
   if (!exists) {
     const initial = [
-      { id: "p1", nombre: "Crema Facial",     descripcion: "Hidratación diaria",    precio: 15990, imagen: imgP1 },
-      { id: "p3", nombre: "Mascarilla Detox", descripcion: "Purifica y revitaliza", precio: 12990, imagen: imgP3 },
-      { id: "p2", nombre: "Serum Capilar",    descripcion: "Reparación intensiva",  precio: 19990, imagen: imgP2 },
+      { id: "p1", nombre: "Crema Facial",     descripcion: "Hidratación diaria",    precio: 15990, imagen: imgP1, categoria: 'general', stock: 10, proveedor: 'Proveedor A', disponible: true },
+      { id: "p3", nombre: "Mascarilla Detox", descripcion: "Purifica y revitaliza", precio: 12990, imagen: imgP3, categoria: 'loreal', stock: 5, proveedor: 'Proveedor B', disponible: true },
+      { id: "p2", nombre: "Serum Capilar",    descripcion: "Reparación intensiva",  precio: 19990, imagen: imgP2, categoria: 'kerastase', stock: 8, proveedor: 'Proveedor C', disponible: true },
     ];
     localStorage.setItem(KEY, JSON.stringify(initial));
     return;
@@ -29,3 +29,31 @@ export function getProducto(id) { return getProductos().find(p => p.id === id) |
 export function createProducto(prod) { const l = getProductos(); l.push(prod); localStorage.setItem(KEY, JSON.stringify(l)); try{ window.dispatchEvent(new Event('productos:changed')); }catch{} return prod; }
 export function updateProducto(id, patch) { const l = getProductos().map(p => p.id===id?{...p,...patch}:p); localStorage.setItem(KEY, JSON.stringify(l)); try{ window.dispatchEvent(new Event('productos:changed')); }catch{} return l.find(p=>p.id===id); }
 export function deleteProducto(id) { const l = getProductos().filter(p=>p.id!==id); localStorage.setItem(KEY, JSON.stringify(l)); try{ window.dispatchEvent(new Event('productos:changed')); }catch{} }
+
+// Normalize/migrate existing products in localStorage so admin and client views match.
+function normalizeProducts(list) {
+  let changed = false;
+  const normalized = (list || []).map((p) => {
+    const copy = { ...p };
+    // categoria heuristic
+    if (typeof copy.categoria === 'undefined' || copy.categoria === null) {
+      const name = String(copy.nombre || '').toLowerCase();
+      const img = String(copy.imagen || '').toLowerCase();
+      if (name.includes('kerastase') || img.includes('kerastase')) copy.categoria = 'kerastase';
+      else if (name.includes("l'oreal") || name.includes('loreal') || img.includes('loreal')) copy.categoria = 'loreal';
+      else copy.categoria = 'general';
+      changed = true;
+    }
+    if (typeof copy.stock === 'undefined') { copy.stock = 0; changed = true; }
+    if (typeof copy.proveedor === 'undefined') { copy.proveedor = ''; changed = true; }
+    if (typeof copy.disponible === 'undefined') { copy.disponible = true; changed = true; }
+    return copy;
+  });
+  if (changed) {
+    try { localStorage.setItem(KEY, JSON.stringify(normalized)); try{ window.dispatchEvent(new Event('productos:changed')); }catch{} } catch(e) {}
+  }
+  return normalized;
+}
+
+// Expose a normalized read path
+export function getProductosNormalized() { seed(); const raw = JSON.parse(localStorage.getItem(KEY)) || []; return normalizeProducts(raw); }

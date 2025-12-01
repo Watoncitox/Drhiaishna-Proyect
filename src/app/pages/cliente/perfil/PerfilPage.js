@@ -8,7 +8,7 @@ import HeroBanner from '../../../components/Hero/HeroBanner';
 import fondo from '../../../assets/img/fondo/servicios/fondo_servicio.png';
 
 const PerfilPage = () => {
-    const { usuario, notify, updateUsuario } = useAuth();
+    const { usuario, notify, updateUsuario, logout } = useAuth();
     const navigate = useNavigate();
     const [editing, setEditing] = useState(false);
     const [form, setForm] = useState({ email: '', telefono: '', genero: '', avatar: '', rut: '' });
@@ -65,6 +65,11 @@ const PerfilPage = () => {
         updateUsuario(updated);
         notify({ title: 'Éxito', body: 'Contraseña actualizada correctamente', variant: 'success' });
         setShowPwdModal(false);
+    };
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
     };
 
     useEffect(() => {
@@ -236,6 +241,7 @@ const PerfilPage = () => {
                                     <div className="d-flex justify-content-center gap-2">
                                         <Button variant="primary" onClick={() => setEditing(true)}>Editar perfil</Button>
                                         <Button variant="outline-dark" onClick={handleChangePassword}>Cambiar Contraseña</Button>
+                                        <Button variant="danger" onClick={handleLogout}>Cerrar sesión</Button>
                                     </div>
                                 ) : (
                                     <div className="d-flex justify-content-center gap-2">
