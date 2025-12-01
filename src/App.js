@@ -39,6 +39,18 @@ function AppRouter() {
 
   const isAdmin = usuario && String(usuario.rol || '').toLowerCase() === 'admin';
 
+  React.useEffect(() => {
+    // add a body class so styles can target admin views
+    if (isAdmin) {
+      document.body.classList.add('admin-bg');
+    } else {
+      document.body.classList.remove('admin-bg');
+    }
+    return () => {
+      document.body.classList.remove('admin-bg');
+    };
+  }, [isAdmin]);
+
   return (
     <BrowserRouter>
       {/* Navbar decidido por el contexto */}
@@ -74,9 +86,13 @@ function AppRouter() {
           <Route path="/admin/servicios-crud" element={<RequireAdmin><ServiciosCRUD /></RequireAdmin>} />
         </Routes>
 
-        {/* Carrito global: sidebar + botón flotante */}
-        <CartSidebar />
-        <CartFloating />
+        {/* Carrito global: sidebar + botón flotante (solo para clientes) */}
+        {!isAdmin && (
+          <>
+            <CartSidebar />
+            <CartFloating />
+          </>
+        )}
       </CartProvider>
       {/* Global toast container driven by AuthContext */}
       <ToastContainer position="bottom-end" className="p-3">

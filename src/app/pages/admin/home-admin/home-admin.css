@@ -42,10 +42,34 @@
 }
 
 .admin-card-img {
-  height: 160px;
+  height: 140px;
   object-fit: cover;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
+}
+
+/* Make cards size to content (do not force equal heights) */
+.admin-card.h-100 {
+  height: auto !important;
+}
+
+.admin-card .card-body {
+  padding-bottom: 1rem;
+}
+
+/* Motivation bar fixed at bottom */
+.admin-motivation-bar {
+  position: relative; /* place at end of content */
+  width: 100%;
+  background: linear-gradient(90deg, rgba(239,230,251,0.98) 0%, rgba(246,239,255,0.98) 100%);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  padding: 12px 18px;
+  text-align: center;
+  margin-top: 28px;
+}
+.admin-motivation-bar .text {
+  color: #6a2fbf;
+  font-weight: 600;
 }
 
 /* ===== Botones ===== */

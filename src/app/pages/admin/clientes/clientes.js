@@ -1,129 +1,159 @@
 import "./clientes.css";
 import React, { useEffect, useMemo, useState } from "react";
 import HeroBanner from "../../../components/Hero/HeroBanner";
-import { Table, Button, ButtonGroup, Badge, Container } from "react-bootstrap";
+import { Table, Button, Container, Modal, ListGroup, Pagination, Form } from "react-bootstrap";
 
-import { listCitas, actualizarEstado } from "../../../services/appointmentsService";
+import { listCitas } from "../../../services/appointmentsService";
 
-function inNextDays(dateIso, days) {
-  const now = new Date();
-  const d = new Date(dateIso);
-  const diff = (d - now) / (1000 * 60 * 60 * 24);
-  return diff >= 0 && diff <= days;
-}
+// (no longer used) previously helper to check next N days
 
 export default function ClientesAdmin() {
   const [citas, setCitas] = useState([]);
-  const [filtro, setFiltro] = useState("hoy"); // 'hoy' | 'proximos3'
+  const [page, setPage] = useState(1);
+  const pageSize = 10;
+  const [showModal, setShowModal] = useState(false);
+  const [modalClient, setModalClient] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     setCitas(listCitas());
   }, []);
 
-  const filtradas = useMemo(() => {
-    const now = new Date();
-    const start = new Date(now); start.setHours(0,0,0,0);
-    const end = new Date(now); end.setHours(23,59,59,999);
-
-    return citas.filter((c) => {
-      const t = new Date(c.fechaHora);
-      if (filtro === "hoy") return t >= start && t <= end;
-      return inNextDays(c.fechaHora, 3);
+  // derive unique clients from citas
+  const clients = useMemo(() => {
+    const map = new Map();
+    citas.forEach(c => {
+      const key = (c.cliente || 'Sin nombre').trim();
+      if (!map.has(key)) map.set(key, { id: key, nombre: key, rut: c.rut || '-', citas: [] });
+      map.get(key).citas.push(c);
     });
-  }, [citas, filtro]);
+    // compute last service for each client
+    return Array.from(map.values()).map((cl) => {
+      const sorted = cl.citas.slice().sort((a,b)=> new Date(b.fechaHora)-new Date(a.fechaHora));
+      return { ...cl, lastService: sorted[0] || null };
+    });
+  }, [citas]);
 
-  const onEstado = (id, estado) => {
-    actualizarEstado(id, estado);
-    setCitas(listCitas());
+  const filteredClients = useMemo(() => {
+    const q = (searchQuery || '').trim().toLowerCase();
+    if (!q) return clients;
+    return clients.filter(c => (c.nombre || '').toLowerCase().includes(q));
+  }, [clients, searchQuery]);
+
+  const total = filteredClients.length;
+  const paginated = filteredClients.slice((page-1)*pageSize, page*pageSize);
+
+  useEffect(() => {
+    const pages = Math.max(1, Math.ceil(total / pageSize));
+    if (page > pages) setPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [total]);
+
+  // reset page when search changes
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery]);
+
+  const openDetails = (client) => {
+    setModalClient({ ...client, citas: (client.citas||[]).slice().sort((a,b)=> new Date(b.fechaHora)-new Date(a.fechaHora)) });
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setModalClient(null);
   };
 
   return (
     <>
       <div className="page-hero admin-hero container-fluid py-5">
-        <HeroBanner title="Clientes" subtitle="Lista de clientes y próximas citas" gradient="rgba(0,0,0,0.45)" showButton={false} />
+        <HeroBanner title="Listado Clientes" subtitle="Detalle de cada cliente y sus ultimas citas" gradient="rgba(0,0,0,0.45)" showButton={false} />
       </div>
 
       <Container className="mt-4 pt-4 clientes-page">
         <div className="d-flex justify-content-between align-items-center mb-3">
-          <h2>Clientes agendados</h2>
-          <ButtonGroup>
-            <Button
-              variant={filtro === "hoy" ? "primary" : "outline-primary"}
-              onClick={() => setFiltro("hoy")}
-            >
-              Hoy
-            </Button>
-            <Button
-              variant={filtro === "proximos3" ? "primary" : "outline-primary"}
-              onClick={() => setFiltro("proximos3")}
-            >
-              Próx. 3 días
-            </Button>
-          </ButtonGroup>
+          <div className="d-flex align-items-center" style={{ gap: 16 }}>
+            <h2 className="mb-0">Clientes</h2>
+            <div style={{ width: 320 }}>
+              <Form.Control placeholder="Buscar por nombre" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+            </div>
+          </div>
+          <div className="text-muted">{`${Math.min(pageSize, total)}/${total}`}</div>
         </div>
 
-        <Table bordered hover responsive>
-          <thead className="table-light">
-            <tr>
-              <th>Cliente</th>
-              <th>Servicio</th>
-              <th>Fecha</th>
-              <th>Hora</th>
-              <th>Estado</th>
-              <th className="text-end">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtradas.map((c) => {
-              const dt = new Date(c.fechaHora);
-              return (
-                <tr key={c.id}>
-                  <td>{c.cliente}</td>
-                  <td>{c.servicio}</td>
-                  <td>{dt.toLocaleDateString()}</td>
-                  <td>{dt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</td>
+        <div className="shadow-lg rounded bg-white p-4">
+          <Table bordered hover responsive className="align-middle text-center">
+            <thead className="table-light">
+              <tr>
+                <th>ID</th>
+                <th className="text-start">Nombre</th>
+                <th>RUT</th>
+                <th>Último servicio</th>
+                <th>Fecha / Hora</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {paginated.map((cl) => (
+                <tr key={cl.id}>
+                  <td>{cl.id}</td>
+                  <td className="text-start">{cl.nombre}</td>
+                  <td>{cl.rut || '-'}</td>
+                  <td>{cl.lastService ? cl.lastService.servicio : '-'}</td>
+                  <td>{cl.lastService ? new Date(cl.lastService.fechaHora).toLocaleString() : '-'}</td>
                   <td>
-                    <Badge
-                      bg={
-                        c.estado === "confirmado"
-                          ? "success"
-                          : c.estado === "cancelado"
-                          ? "danger"
-                          : "secondary"
-                      }
-                    >
-                      {c.estado}
-                    </Badge>
-                  </td>
-                  <td className="text-end">
-                    <Button
-                      size="sm"
-                      className="me-2"
-                      variant="success"
-                      onClick={() => onEstado(c.id, "confirmado")}
-                    >
-                      Confirmar
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline-danger"
-                      onClick={() => onEstado(c.id, "cancelado")}
-                    >
-                      Cancelar
-                    </Button>
+                    <div className="d-flex justify-content-center">
+                      <Button size="sm" variant="outline-primary" onClick={() => openDetails(cl)}>Detalles</Button>
+                    </div>
                   </td>
                 </tr>
-              );
-            })}
-            {filtradas.length === 0 && (
-              <tr>
-                <td colSpan="6" className="text-center text-muted">
-                  Sin registros para el filtro seleccionado
-                </td>
-              </tr>
+              ))}
+              {total === 0 && (
+                <tr>
+                  <td colSpan="6" className="text-center text-muted">No hay clientes registrados</td>
+                </tr>
+              )}
+            </tbody>
+          </Table>
+
+          <div className="d-flex justify-content-between align-items-center mt-3">
+            <div className="text-muted">Mostrando {Math.min(pageSize, total)} de {total}</div>
+            <Pagination>
+              <Pagination.Prev onClick={() => setPage(p => Math.max(1, p-1))} disabled={page===1} />
+              {Array.from({length: Math.max(1, Math.ceil(total/pageSize))}).map((_, i) => (
+                <Pagination.Item key={i} active={i+1===page} onClick={() => setPage(i+1)}>{i+1}</Pagination.Item>
+              ))}
+              <Pagination.Next onClick={() => setPage(p => Math.min(Math.ceil(total/pageSize), p+1))} disabled={page===Math.ceil(total/pageSize) || total===0} />
+            </Pagination>
+          </div>
+        </div>
+
+        {/* Details modal */}
+        <Modal show={showModal} onHide={closeModal} size="lg" centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Historial de servicios: {modalClient ? modalClient.nombre : ''}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {!modalClient && <div>Cargando...</div>}
+            {modalClient && (
+              <ListGroup>
+                {modalClient.citas.map(c => (
+                  <ListGroup.Item key={c.id} className="d-flex justify-content-between align-items-start">
+                    <div>
+                      <div className="fw-semibold">{c.servicio}</div>
+                      <div className="small text-muted">{c.cliente}</div>
+                    </div>
+                    <div className="text-end small text-muted">{new Date(c.fechaHora).toLocaleString()}</div>
+                  </ListGroup.Item>
+                ))}
+                {modalClient.citas.length === 0 && <ListGroup.Item className="text-muted">No hay servicios registrados</ListGroup.Item>}
+              </ListGroup>
             )}
-          </tbody>
-        </Table>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeModal}>Cerrar</Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     </>
   );

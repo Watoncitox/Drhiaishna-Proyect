@@ -8,7 +8,7 @@ export default function NavbarAdmin() {
     { to: "/admin/productos", label: "Productos" },
     { to: "/admin/servicios-crud", label: "Servicios" },
     { to: "/admin/agenda", label: "Agenda" },
-    { to: "/admin/usuario", label: "Usuarios" },
+    { to: "/admin/usuario", label: "Usuario" },
   ];
 
   useEffect(() => {
