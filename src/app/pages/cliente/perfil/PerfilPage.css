@@ -50,3 +50,8 @@
     gap: 15px; /* Espacio entre los botones */
     margin-top: 20px;
 }
+
+/* Small responsive tweaks for profile header */
+.perfil-card img {
+    object-fit: cover;
+}

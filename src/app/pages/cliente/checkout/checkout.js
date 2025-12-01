@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Container, Row, Col, Table, Button, Alert } from 'react-bootstrap';
 import { useCart } from '../../../context/CartContext';
+import { useAuth } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import HeroBanner from '../../../components/Hero/HeroBanner';
 import fondo from '../../../assets/img/fondo/servicios/fondo_servicio.png';
@@ -12,6 +13,7 @@ export default function Checkout() {
   const navigate = useNavigate();
 
   const items = useMemo(() => cart || [], [cart]);
+  const { usuario } = useAuth();
 
   const total = useMemo(() => {
     return items.reduce((sum, it) => {
@@ -65,6 +67,8 @@ export default function Checkout() {
           <h1>Voucher de Pago</h1>
           <p><strong>Orden:</strong> ${ord.id}</p>
           <p><strong>Total:</strong> $${ord.total.toLocaleString('es-CL')} CLP</p>
+          <h4>Datos del cliente</h4>
+          <p><strong>Nombre:</strong> ${usuario?.nombre || ''} <br/><strong>RUT:</strong> ${usuario?.rut || ''} <br/><strong>Correo:</strong> ${usuario?.email || ''} <br/><strong>Teléfono:</strong> ${usuario?.telefono || usuario?.phone || ''}</p>
           <table>
             <thead><tr><th>Item</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th></tr></thead>
             <tbody>
@@ -114,6 +118,13 @@ export default function Checkout() {
 
           {items.length > 0 && (
             <div style={{ overflowX: 'auto' }}>
+            {/* Datos del usuario */}
+            <div className="mb-3 p-3 border rounded bg-light">
+              <strong>Cliente:</strong> {usuario?.nombre || '-'}<br />
+              <strong>RUT:</strong> {usuario?.rut || '-'}<br />
+              <strong>Correo:</strong> {usuario?.email || '-'}<br />
+              <strong>Teléfono:</strong> {usuario?.telefono || usuario?.phone || '-'}
+            </div>
             <Table striped bordered hover>
               <thead>
                 <tr>
